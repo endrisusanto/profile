@@ -1,31 +1,32 @@
-# Stage 1: Build the application
-FROM node:20-alpine as builder
+# Stage 1: Build the Vite frontend
+FROM node:20-alpine AS builder
 
 WORKDIR /app
 
-# Copy package.json and package-lock.json first to leverage layer caching
 COPY package.json package-lock.json ./
-
-# Install dependencies
 RUN npm ci
 
-# Copy the rest of the application files
 COPY . .
-
-# Build the application
 RUN npm run build
 
-# Stage 2: Serve the application with Nginx
-FROM nginx:alpine
+# Stage 2: Run the Express server
+FROM node:20-alpine
 
-# Copy the built files from the builder stage
-COPY --from=builder /app/dist /usr/share/nginx/html
+WORKDIR /app
 
-# Copy custom Nginx configuration
-COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Copy package files and install production deps only
+COPY package.json package-lock.json ./
+RUN npm ci --omit=dev
 
-# Expose port 80
+# Copy built frontend from builder
+COPY --from=builder /app/dist ./dist
+
+# Copy server entry point
+COPY server.js .
+
+# Create uploads directory
+RUN mkdir -p uploads
+
 EXPOSE 80
 
-# Start Nginx
-CMD ["nginx", "-g", "daemon off;"]
+CMD ["node", "server.js"]

@@ -1,310 +1,452 @@
 import './style.css'
-import * as THREE from 'three'
 
 const app = document.querySelector('#app')
 
-const profile = {
-  name: 'Endri Susanto',
-  role: 'Software Quality Engineer | Product Engineer',
-  location: 'North Cikarang, West Java, Indonesia',
-  quote: '"Choose a job you love, and you will never have to work a day in your life."',
-  bio: 'Innovative and experienced Software Quality Assurance Engineer with a consistent track record in the electrical and electronic manufacturing industry. Proficient in Computer Science, IT, Automation, Office Administration, and Web Applications. I am a tech-savvy engineering professional focused on implementing cutting-edge technology, holding an Associate Degree in Electrical and Electronics Engineering from Universitas Diponegoro.',
-  skills: [
-    { category: 'Core Skills', items: ['Testing', 'SQL', 'Creative Problem Solving (Pemecahan Masalah Kreatif)', 'Automation'] },
-    { category: 'Development', items: ['Modern JavaScript', 'Vite', 'Node.js', 'PHP', 'Python', 'Web Applications'] },
-    { category: 'Languages', items: ['English (Professional Working)', 'Bahasa Korea (Elementary)', 'Bahasa Indonesia (Native)'] }
-  ],
-  socials: [
-    { name: 'GitHub', url: 'https://github.com/endrisusanto', icon: 'Code' },
-    { name: 'LinkedIn', url: 'https://www.linkedin.com/in/endrisusanto/', icon: 'Link' },
-    { name: 'Email', url: 'mailto:gmail@endrisusanto.my.id', icon: 'Mail' }
-  ],
-  experience: [
-    {
-      company: 'Samsung Electronics',
-      role: 'Software Quality Engineer | Product Engineer',
-      period: 'January 2016 - Present (10 years 2 months)',
-      description: 'A Software Quality Assurance (SQA) Engineer’s role in the AOSP Compatibility Test Suite involves ensuring that the software adheres to quality standards and specifications set by the AOSP. This includes designing and executing test cases, identifying and documenting software defects, and collaborating with the development team to resolve issues. SQA Engineers also play a crucial role in maintaining and improving testing processes to ensure the overall quality and compatibility of the Android platform across various devices.'
-    }
-  ],
-  education: [
-    {
-      school: 'Diponegoro University',
-      degree: 'Associate\'s degree, Electrical and Electronics Engineering',
-      period: '2012 - 2015'
-    },
-    {
-      school: 'SMK Negeri 2 Pati',
-      degree: 'High School Diploma, Automation Engineer Technology/Technician',
-      period: 'May 2009 - July 2012'
-    }
-  ],
-  certifications: [
-    'Leading with Vision',
-    'Talent Management',
-    'Developing Managers in Organizations'
-  ]
+// ─── Global State ───────────────────────────────────────────────────────────
+let appData = {
+  profile: {},
+  projects: []
+}
+const ADMIN_PASSWORD = 'endri123'
+let sessionAuth = false
+
+// ─── SVG Icons ───────────────────────────────────────────────────────────────
+const icons = {
+  settings: `<svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z"/><path stroke-linecap="round" stroke-linejoin="round" d="M15 12a3 3 0 11-6 0 3 3 0 016 0z"/></svg>`,
+  download: `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M4 16v1a3 3 0 003 3h10a3 3 0 003-3v-1m-4-4l-4 4m0 0l-4-4m4 4V4"/></svg>`,
+  trash:    `<svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"/></svg>`,
+  upload:   `<svg xmlns="http://www.w3.org/2000/svg" width="32" height="32" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="1.5"><path stroke-linecap="round" stroke-linejoin="round" d="M3 16.5v2.25A2.25 2.25 0 005.25 21h13.5A2.25 2.25 0 0021 18.75V16.5m-13.5-9L12 3m0 0l4.5 4.5M12 3v13.5"/></svg>`,
+  lock:     `<svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2"><path stroke-linecap="round" stroke-linejoin="round" d="M12 15v2m-6 4h12a2 2 0 002-2v-6a2 2 0 00-2-2H6a2 2 0 00-2 2v6a2 2 0 002 2zm10-10V7a4 4 0 00-8 0v4h8z"/></svg>`,
+  save:     `<svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="none" viewBox="0 0 24 24" stroke="currentColor" stroke-width="2.5"><path stroke-linecap="round" stroke-linejoin="round" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"/></svg>`
 }
 
-const projects = [
-  {
-    name: 'Gang Ambyar Super App',
-    description: 'All-in-one community platform featuring digital Ronda scheduling with attendance tracking, Iuran financial management with WhatsApp reminders, and a real-time Flood Monitoring system (Pantau Banjir) with interactive water level charts.',
-    tags: ['Full Stack', 'Community', 'Data Visualization', 'Automation'],
-    link: '#'
-  },
-  {
-    name: 'YouTube Heatmap Clipper',
-    description: 'Intelligent video processing tool utilizing AI to detect and automatically clip high-engagement segments from YouTube videos using heatmap data and scene detection.',
-    tags: ['AI', 'FFmpeg', 'Python', 'Automation'],
-    link: '#'
-  },
-  {
-    name: 'QRIS Donation System',
-    description: 'Dynamic payment solution generating secure QRIS codes with auto-expiration blurring, session-based donation tracking, and real-time validation logic.',
-    tags: ['Fintech', 'Payment Gateway', 'Security', 'UX'],
-    link: '#'
-  },
-  {
-    name: 'Companion Release Cheatsheet',
-    description: 'Streamlined release management workflow specifically designed for tracking system builds (QB CSC) and coordinating deployment checklists.',
-    tags: ['DevOps', 'Internal Tools', 'React', 'Productivity'],
-    link: '#'
-  },
-  {
-    name: 'Personal Developer Portfolio',
-    description: 'Modern, high-performance portfolio website built with Vite and Vanilla JS. Features a glassmorphism aesthetic, responsive grid layouts, and smooth CSS animations.',
-    tags: ['Vite', 'Modern CSS', 'Performance', 'Design'],
-    link: '#'
-  }
-]
-
-// Initialize 3D Background
-function initThreeJS() {
-  const canvasContainer = document.createElement('div');
-  canvasContainer.id = 'canvas-bg';
-  document.body.prepend(canvasContainer);
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 100);
-  camera.position.z = 2;
-
-  const renderer = new THREE.WebGLRenderer({ alpha: true, antialias: true });
-  renderer.setSize(window.innerWidth, window.innerHeight);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  canvasContainer.appendChild(renderer.domElement);
-
-  // Particles
-  const particlesGeometry = new THREE.BufferGeometry();
-  const particlesCount = 1500;
-  const posArray = new Float32Array(particlesCount * 3);
-
-  for (let i = 0; i < particlesCount * 3; i++) {
-    posArray[i] = (Math.random() - 0.5) * 5;
-  }
-
-  particlesGeometry.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-
-  const particlesMaterial = new THREE.PointsMaterial({
-    size: 0.005,
-    color: 0x38bdf8,
-    transparent: true,
-    opacity: 0.8,
-    blending: THREE.AdditiveBlending
-  });
-
-  const particlesMesh = new THREE.Points(particlesGeometry, particlesMaterial);
-  scene.add(particlesMesh);
-
-  // Mouse Interaction
-  let mouseX = 0;
-  let mouseY = 0;
-  let targetX = 0;
-  let targetY = 0;
-
-  const windowHalfX = window.innerWidth / 2;
-  const windowHalfY = window.innerHeight / 2;
-
-  document.addEventListener('mousemove', (event) => {
-    mouseX = (event.clientX - windowHalfX);
-    mouseY = (event.clientY - windowHalfY);
-  });
-
-  // Animate
-  const clock = new THREE.Clock();
-
-  const tick = () => {
-    targetX = mouseX * 0.001;
-    targetY = mouseY * 0.001;
-
-    const elapsedTime = clock.getElapsedTime();
-
-    particlesMesh.rotation.y = .1 * elapsedTime;
-    particlesMesh.rotation.x += .05 * (targetY - particlesMesh.rotation.x);
-    particlesMesh.rotation.y += .05 * (targetX - particlesMesh.rotation.y);
-
-    renderer.render(scene, camera);
-    window.requestAnimationFrame(tick);
-  }
-
-  tick();
-
-  // Handle Resize
-  window.addEventListener('resize', () => {
-    camera.aspect = window.innerWidth / window.innerHeight;
-    camera.updateProjectionMatrix();
-    renderer.setSize(window.innerWidth, window.innerHeight);
-  });
+// ─── Helpers ─────────────────────────────────────────────────────────────────
+function formatBytes(b) {
+  if (b < 1024) return b + ' B'
+  if (b < 1024 * 1024) return (b / 1024).toFixed(1) + ' KB'
+  return (b / (1024 * 1024)).toFixed(1) + ' MB'
 }
 
-initThreeJS();
+function getExt(name) {
+  return (name.split('.').pop() || 'file').toUpperCase().slice(0, 4)
+}
 
-// Render Content
-app.innerHTML = `
-  <!-- Section 1: Hero -->
-  <section class="snap-section">
-      <div class="container fade-in-up">
-        <div style="max-width: 800px; margin: 0 auto; text-align: center;">
-            <span style="display: inline-block; padding: 0.5rem 1rem; border-radius: 50px; background: rgba(56, 189, 248, 0.1); color: var(--accent-color); font-weight: 500; font-size: 0.875rem; margin-bottom: 1.5rem;">
-            ${profile.role}
-            </span>
-            <h1 class="text-gradient" style="font-size: clamp(3rem, 5vw, 4.5rem); margin-bottom: 1.5rem; letter-spacing: -0.02em;">
-            ${profile.name}
-            </h1>
-            <p style="color: var(--text-secondary); font-size: 1.125rem; margin-bottom: 2rem;">
-            <span style="display: flex; align-items: center; justify-content: center; gap: 0.5rem;">
-                <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" style="width: 1.25rem; height: 1.25rem;">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M15 10.5a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" d="M19.5 10.5c0 7.142-7.5 11.25-7.5 11.25S4.5 17.642 4.5 10.5a7.5 7.5 0 1115 0z" />
-                </svg>
-                ${profile.location}
-            </span>
-            </p>
-            <p style="color: var(--text-secondary); font-size: 1.25rem; line-height: 1.8; margin-bottom: 2.5rem; max-width: 600px; margin-left: auto; margin-right: auto;">
-            ${profile.bio}
-            </p>
-            <blockquote style="font-style: italic; color: var(--text-secondary); opacity: 0.8; margin-bottom: 3rem; font-size: 1.1rem; border-left: 3px solid var(--accent-color); padding-left: 1rem; display: inline-block;">
-            ${profile.quote}
+function extColor(ext) {
+  const map = { PDF: '#cc1016', DOC: '#185abd', DOCX: '#185abd', JPG: '#e67e22', PNG: '#27ae60', ZIP: '#8e44ad' }
+  return map[ext] || '#0a66c2'
+}
+
+function showToast(msg, type = '') {
+  const t = document.getElementById('toast')
+  t.textContent = msg
+  t.className = 'toast' + (type ? ' ' + type : '')
+  t.classList.add('show')
+  setTimeout(() => t.classList.remove('show'), 2800)
+}
+
+// ─── API calls ────────────────────────────────────────────────────────────────
+async function fetchProfileData() {
+  try {
+    const r = await fetch('/api/profile')
+    appData = await r.json()
+    renderPage()
+  } catch (err) {
+    console.error('Failed to fetch profile data', err)
+  }
+}
+
+async function saveProfileData(newData) {
+  try {
+    const r = await fetch('/api/profile', {
+      method: 'POST',
+      headers: { 
+        'Content-Type': 'application/json',
+        'authorization': ADMIN_PASSWORD 
+      },
+      body: JSON.stringify(newData)
+    })
+    const res = await r.json()
+    if (res.success) {
+      appData = newData
+      showToast('Data berhasil disimpan!', 'success')
+      renderPage()
+    } else {
+      showToast('Gagal menyimpan data.', 'error')
+    }
+  } catch (err) {
+    showToast('Error saat menyimpan.', 'error')
+  }
+}
+
+async function fetchFiles() {
+  try {
+    const r = await fetch('/api/files')
+    if (!r.ok) return []
+    return await r.json()
+  } catch { return [] }
+}
+
+async function uploadFile(file) {
+  const fd = new FormData()
+  fd.append('file', file)
+  const r = await fetch('/api/upload', {
+    method: 'POST',
+    headers: { 'authorization': ADMIN_PASSWORD },
+    body: fd
+  })
+  return r.json()
+}
+
+async function deleteFile(filename) {
+  const r = await fetch(`/api/files/${encodeURIComponent(filename)}`, {
+    method: 'DELETE',
+    headers: { 'authorization': ADMIN_PASSWORD }
+  })
+  return r.json()
+}
+
+// ─── Render components ────────────────────────────────────────────────────────
+async function renderPublicDocs() {
+  const files = await fetchFiles()
+  const container = document.getElementById('docs-list')
+  if (!container) return
+
+  if (!files.length) {
+    container.innerHTML = '<p class="no-docs">Belum ada lampiran yang tersedia.</p>'
+    return
+  }
+
+  container.innerHTML = files.map(f => {
+    const ext = getExt(f.friendlyName)
+    const color = extColor(ext)
+    return `
+      <div class="doc-item">
+        <div class="doc-icon" style="background:${color}">${ext}</div>
+        <div class="doc-info">
+          <div class="doc-name" title="${f.friendlyName}">${f.friendlyName}</div>
+          <div class="doc-size">${formatBytes(f.size)}</div>
+        </div>
+        <div class="doc-actions">
+          <a href="${f.url}" download="${f.friendlyName}" class="btn btn-primary btn-sm" title="Download">
+            ${icons.download} Download
+          </a>
+        </div>
+      </div>
+    `
+  }).join('')
+}
+
+async function renderAdminFiles() {
+  const files = await fetchFiles()
+  const container = document.getElementById('admin-file-list')
+  if (!container) return
+
+  if (!files.length) {
+    container.innerHTML = '<p class="no-docs">Belum ada file terupload.</p>'
+    return
+  }
+
+  container.innerHTML = files.map(f => {
+    const ext = getExt(f.friendlyName)
+    const color = extColor(ext)
+    return `
+      <div class="admin-doc-item" id="admin-item-${f.filename}">
+        <div class="doc-icon" style="background:${color};width:32px;height:32px;font-size:0.65rem;">${ext}</div>
+        <div class="doc-info">
+          <div class="doc-name" title="${f.friendlyName}">${f.friendlyName}</div>
+          <div class="doc-size">${formatBytes(f.size)}</div>
+        </div>
+        <button class="btn btn-danger" onclick="handleDelete('${f.filename}')">
+          ${icons.trash}
+        </button>
+      </div>
+    `
+  }).join('')
+}
+
+// ─── Modal Logic ──────────────────────────────────────────────────────────────
+window.openSettingsModal = function () {
+  document.getElementById('settings-modal').classList.add('open')
+  if (!sessionAuth) showAuthPanel()
+  else showSettingsPanel()
+}
+
+window.closeSettingsModal = function () {
+  document.getElementById('settings-modal').classList.remove('open')
+}
+
+window.switchTab = function(tabName) {
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'))
+  document.querySelector(`[onclick="switchTab('${tabName}')"]`).classList.add('active')
+  
+  document.getElementById('tab-files').style.display = tabName === 'files' ? 'block' : 'none'
+  document.getElementById('tab-content').style.display = tabName === 'content' ? 'block' : 'none'
+  
+  if (tabName === 'content') {
+    document.getElementById('json-editor').value = JSON.stringify(appData, null, 2)
+  } else {
+    renderAdminFiles()
+  }
+}
+
+window.handleSaveContent = async function() {
+  try {
+    const newData = JSON.parse(document.getElementById('json-editor').value)
+    await saveProfileData(newData)
+  } catch (err) {
+    showToast('Format JSON tidak valid!', 'error')
+  }
+}
+
+window.handleDelete = async function (filename) {
+  if (!confirm('Hapus file ini?')) return
+  const res = await deleteFile(filename)
+  if (res.success) {
+    showToast('File dihapus.', 'success')
+    renderAdminFiles()
+    renderPublicDocs()
+  } else {
+    showToast('Gagal menghapus.', 'error')
+  }
+}
+
+function showAuthPanel() {
+  document.getElementById('auth-panel').style.display = 'block'
+  document.getElementById('settings-panel').style.display = 'none'
+}
+
+function showSettingsPanel() {
+  document.getElementById('auth-panel').style.display = 'none'
+  document.getElementById('settings-panel').style.display = 'block'
+  switchTab('files')
+}
+
+window.checkPassword = function () {
+  const val = document.getElementById('pwd-input').value
+  if (val === ADMIN_PASSWORD) {
+    sessionAuth = true
+    document.getElementById('auth-error').textContent = ''
+    showSettingsPanel()
+  } else {
+    document.getElementById('auth-error').textContent = 'Password salah, coba lagi.'
+    document.getElementById('pwd-input').value = ''
+    document.getElementById('pwd-input').focus()
+  }
+}
+
+window.triggerFileInput = function () {
+  document.getElementById('file-input').click()
+}
+
+window.handleFileChange = async function (e) {
+  const file = e.target.files[0]
+  if (!file) return
+  await doUpload(file)
+  e.target.value = ''
+}
+
+async function doUpload(file) {
+  const progressWrap = document.getElementById('upload-progress')
+  progressWrap.style.display = 'block'
+  const res = await uploadFile(file)
+  progressWrap.style.display = 'none'
+  if (res.success) {
+    showToast('File berhasil diupload!', 'success')
+    renderAdminFiles()
+    renderPublicDocs()
+  } else {
+    showToast('Upload gagal: ' + (res.error || 'Unknown error'), 'error')
+  }
+}
+
+// ─── Main Render ──────────────────────────────────────────────────────────────
+function renderPage() {
+  const { profile, projects } = appData
+  
+  app.innerHTML = `
+    <div class="container">
+      <div class="main-grid">
+        <!-- ── Left Column ── -->
+        <div>
+          <!-- Profile Card -->
+          <section class="card profile-card">
+            <div class="banner"></div>
+            <div class="profile-pic-container">
+              <div class="profile-pic">
+                <img src="${profile.photo || '/assets/profile.jpeg'}" alt="${profile.name}" style="width: 100%; height: 100%; object-fit: cover;">
+              </div>
+            </div>
+            <div class="profile-info">
+              <h1>${profile.name}</h1>
+              <p style="font-size:1rem;margin-top:4px;">${profile.role}</p>
+              <p class="text-secondary" style="margin-top:4px;">${profile.location}</p>
+              <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+                ${profile.socials.map(s => `
+                  <a href="${s.url}" target="_blank" class="btn ${s.name === 'Email' ? 'btn-primary' : 'btn-secondary'}">${s.name}</a>
+                `).join('')}
+              </div>
+            </div>
+          </section>
+
+          <!-- About -->
+          <section class="card">
+            <h2>About</h2>
+            <p style="font-size:0.875rem;">${profile.bio}</p>
+            <blockquote style="margin-top:12px;font-style:italic;color:var(--text-secondary);border-left:3px solid var(--border-color);padding-left:12px;font-size:0.875rem;">
+              ${profile.quote}
             </blockquote>
-            <div style="display: flex; gap: 1rem; justify-content: center;">
-            <a href="#projects" class="btn btn-primary" onclick="document.querySelector('#projects').scrollIntoView({behavior: 'smooth'})">View Projects</a>
-            <a href="${profile.socials.find(s => s.name === 'Email').url}" class="btn btn-secondary">Contact Me</a>
-            </div>
-        </div>
-      </div>
-  </section>
+          </section>
 
-  <!-- Section 2: Experience -->
-  <section class="snap-section">
-      <div class="container">
-        <div class="glass-card fade-in-up" style="padding: 2.5rem; max-width: 900px; margin: 0 auto;">
-            <h2 style="margin-bottom: 2rem; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem; text-align: center;">Professional Experience</h2>
+          <!-- Experience -->
+          <section class="card">
+            <h2>Experience</h2>
             ${profile.experience.map(exp => `
-            <div style="margin-bottom: 2rem;">
-                <h3 style="font-size: 1.5rem; color: var(--text-primary); margin-bottom: 0.5rem;">${exp.role}</h3>
-                <div style="display: flex; justify-content: space-between; flex-wrap: wrap; gap: 0.5rem; margin-bottom: 1rem;">
-                    <div style="color: var(--accent-color); font-weight: 500; font-size: 1.1rem;">${exp.company}</div>
-                    <div style="color: var(--text-secondary); font-size: 0.9rem; opacity: 0.8; background: rgba(255,255,255,0.05); padding: 0.25rem 0.75rem; border-radius: 12px;">${exp.period}</div>
-                </div>
-                <p style="color: var(--text-secondary); line-height: 1.7; font-size: 1rem;">${exp.description}</p>
-            </div>
+              <div class="list-item">
+                <h3>${exp.role}</h3>
+                <p style="font-weight:600;font-size:0.875rem;">${exp.company}</p>
+                <p class="text-secondary" style="margin-bottom:8px;">${exp.period}</p>
+                <p style="font-size:0.875rem;">${exp.description}</p>
+              </div>
             `).join('')}
-        </div>
-      </div>
-  </section>
+          </section>
 
-  <!-- Section 3: Education & Certs -->
-  <section class="snap-section">
-      <div class="container">
-         <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 2rem;">
-            <div class="glass-card fade-in-up" style="padding: 2.5rem;">
-                <h2 style="margin-bottom: 2rem; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">Education</h2>
-                ${profile.education.map(edu => `
-                <div style="margin-bottom: 2rem;">
-                    <h3 style="font-size: 1.25rem; color: var(--text-primary); margin-bottom: 0.25rem;">${edu.school}</h3>
-                    <div style="color: var(--accent-color); font-weight: 500; margin-bottom: 0.5rem;">${edu.degree}</div>
-                    <div style="color: var(--text-secondary); font-size: 0.875rem; opacity: 0.8;">${edu.period}</div>
+          <!-- Projects -->
+          <section class="card">
+            <h2>Projects</h2>
+            <div class="project-grid">
+              ${projects.map(p => `
+                <div class="project-card">
+                  <h3 style="margin-bottom:6px;">${p.name}</h3>
+                  <p style="font-size:0.8rem;flex-grow:1;margin-bottom:10px;color:var(--text-secondary);">${p.description}</p>
+                  <div>${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
                 </div>
-                `).join('')}
+              `).join('')}
             </div>
-            
-            <div class="glass-card fade-in-up delay-100" style="padding: 2.5rem;">
-                <h2 style="margin-bottom: 2rem; color: var(--text-primary); border-bottom: 1px solid rgba(255,255,255,0.1); padding-bottom: 1rem;">Certifications</h2>
-                <ul style="list-style: none; padding: 0;">
-                ${profile.certifications.map(cert => `
-                    <li style="margin-bottom: 1rem; color: var(--text-secondary); display: flex; align-items: center; background: rgba(255,255,255,0.02); padding: 0.75rem; border-radius: 8px;">
-                    <span style="color: var(--accent-color); margin-right: 0.75rem; font-weight: bold;">✓</span>
-                    ${cert}
-                    </li>
-                `).join('')}
-                </ul>
-            </div>
-         </div>
-      </div>
-  </section>
+          </section>
 
-  <!-- Section 4: Skills -->
-  <section class="snap-section">
-      <div class="container">
-        <div class="glass-card fade-in-up" style="padding: 3rem;">
-            <h2 style="margin-bottom: 3rem; text-align: center;">Technical Skills</h2>
-            <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 3rem;">
-                ${profile.skills.map(skillGroup => `
-                    <div>
-                        <h3 style="color: var(--accent-color); margin-bottom: 1.5rem; font-size: 1.4rem; border-left: 3px solid var(--accent-color); padding-left: 1rem;">${skillGroup.category}</h3>
-                        <ul style="list-style: none; padding: 0;">
-                            ${skillGroup.items.map(item => `
-                                <li style="margin-bottom: 0.75rem; color: var(--text-secondary); display: flex; align-items: center; font-size: 1.1rem;">
-                                    <span style="display: inline-block; width: 6px; height: 6px; background: var(--text-primary); border-radius: 50%; margin-right: 1rem; opacity: 0.5;"></span>
-                                    ${item}
-                                </li>
-                            `).join('')}
-                        </ul>
-                    </div>
-                `).join('')}
+          <!-- Education -->
+          <section class="card">
+            <h2>Education</h2>
+            ${profile.education.map(e => `
+              <div class="list-item">
+                <h3>${e.school}</h3>
+                <p style="font-size:0.875rem;">${e.degree}</p>
+                <p class="text-secondary">${e.period}</p>
+              </div>
+            `).join('')}
+          </section>
+
+          <!-- Documents (public) -->
+          <section class="card">
+            <h2>📎 Lampiran &amp; Dokumen</h2>
+            <div id="docs-list" class="docs-list">
+              <p class="no-docs">Memuat dokumen…</p>
             </div>
+          </section>
+        </div>
+
+        <!-- ── Right Column ── -->
+        <div>
+          <!-- Skills -->
+          <section class="card">
+            <h2>Skills</h2>
+            ${profile.skills.map(g => `
+              <div style="margin-bottom:14px;">
+                <h3 style="font-size:0.825rem;margin-bottom:6px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;">${g.category}</h3>
+                <div>${g.items.map(i => `<span class="tag">${i}</span>`).join('')}</div>
+              </div>
+            `).join('')}
+          </section>
+
+          <!-- Certifications -->
+          <section class="card">
+            <h2>Licenses &amp; Certifications</h2>
+            ${profile.certifications.map(c => `
+              <div class="list-item">
+                <p style="font-size:0.875rem;font-weight:600;">${c}</p>
+              </div>
+            `).join('')}
+          </section>
         </div>
       </div>
-  </section>
+    </div>
 
-  <!-- Section 5: Projects -->
-  <section class="snap-section" id="projects">
-      <div class="container">
-        <h2 style="margin-bottom: 3rem; font-size: 2.5rem; text-align: center;">Featured Projects</h2>
-        <div class="fade-in-up" style="display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 1.5rem; max-height: 80vh; overflow-y: auto; padding-right: 0.5rem; scrollbar-width: thin;">
-        ${projects.map(project => `
-            <div class="glass-card" style="display: flex; flex-direction: column;">
-            <div style="margin-bottom: 1rem; display: flex; gap: 0.5rem; flex-wrap: wrap;">
-                ${project.tags.map(tag => `
-                <span style="font-size: 0.75rem; padding: 0.25rem 0.75rem; border-radius: 20px; background: rgba(255,255,255,0.05); color: var(--accent-color);">
-                    ${tag}
-                </span>
-                `).join('')}
+    <!-- ── Floating Settings Button ── -->
+    <button class="fab-settings" id="fab-btn" onclick="openSettingsModal()" title="Settings">
+      ${icons.settings}
+    </button>
+
+    <!-- ── Settings Modal ── -->
+    <div class="modal-overlay" id="settings-modal" onclick="if(event.target===this) closeSettingsModal()">
+      <div class="modal">
+        <div class="modal-header">
+          <h3>⚙️ Settings</h3>
+          <button class="modal-close" onclick="closeSettingsModal()">✕</button>
+        </div>
+        <div class="modal-body">
+
+          <!-- Auth Panel -->
+          <div id="auth-panel">
+            <p style="font-size:0.875rem;color:var(--text-secondary);margin-bottom:16px;">
+              Panel dilindungi password.
+            </p>
+            <div class="auth-form">
+              <label for="pwd-input">${icons.lock} Password</label>
+              <input type="password" id="pwd-input" placeholder="Masukkan password…"
+                onkeydown="if(event.key==='Enter') checkPassword()">
+              <p class="auth-error" id="auth-error"></p>
+              <button class="btn btn-primary" onclick="checkPassword()">Masuk</button>
             </div>
-            <h3 style="margin-bottom: 0.75rem; font-size: 1.25rem;">${project.name}</h3>
-            <p style="color: var(--text-secondary); margin-bottom: 1.5rem; font-size: 0.95rem; line-height: 1.5;">${project.description}</p>
-            <a href="${project.link}" style="margin-top: auto; display: inline-flex; align-items: center; gap: 0.5rem; color: var(--accent-color); font-weight: 500; font-size: 0.9rem;">
-                View Details <span>&rarr;</span>
-            </a>
+          </div>
+
+          <!-- Settings Panel -->
+          <div id="settings-panel" style="display:none;">
+            <div class="tabs">
+              <button class="tab-btn active" onclick="switchTab('files')">Files</button>
+              <button class="tab-btn" onclick="switchTab('content')">Content JSON</button>
             </div>
-        `).join('')}
+
+            <div id="tab-files">
+              <div class="upload-area" id="upload-area" onclick="triggerFileInput()"
+                ondragover="event.preventDefault();this.classList.add('dragover')"
+                ondragleave="this.classList.remove('dragover')"
+                ondrop="event.preventDefault();this.classList.remove('dragover');handleFileChange({target:{files:event.dataTransfer.files}})">
+                ${icons.upload}
+                <p><strong>Klik untuk pilih file</strong> atau drag &amp; drop</p>
+                <input type="file" id="file-input" onchange="handleFileChange(event)">
+              </div>
+              <div class="upload-progress" id="upload-progress">
+                <p style="font-size:0.8rem;margin-bottom:4px;">Mengupload…</p>
+                <progress></progress>
+              </div>
+              <div class="admin-file-list">
+                <h4>📂 File Terupload</h4>
+                <div id="admin-file-list"><p class="no-docs">Memuat…</p></div>
+              </div>
+            </div>
+
+            <div id="tab-content" style="display:none;">
+              <p style="font-size:0.8rem;color:var(--text-secondary);margin-bottom:10px;">
+                Edit raw JSON data untuk mengubah seluruh konten halaman secara instan.
+              </p>
+              <textarea id="json-editor" spellcheck="false" style="width:100%;height:350px;font-family:monospace;font-size:0.8rem;padding:12px;border:1px solid var(--border-color);border-radius:8px;outline:none;background:#f8f9fa;resize:vertical;"></textarea>
+              <div style="margin-top:16px;display:flex;justify-content:flex-end;">
+                <button class="btn btn-primary" onclick="handleSaveContent()">
+                  ${icons.save} Simpan Perubahan
+                </button>
+              </div>
+            </div>
+          </div>
+
         </div>
       </div>
-  </section>
+    </div>
 
-  <!-- Section 6: Footer -->
-  <section class="snap-section" style="min-height: 20vh; justify-content: flex-end;">
-    <footer style="text-align: center; padding: 4rem 0 2rem; color: var(--text-secondary);">
-        <div class="container">
-            <div style="display: flex; justify-content: center; gap: 2rem; margin-bottom: 2rem;">
-                ${profile.socials.map(social => `
-                    <a href="${social.url}" target="_blank" style="color: var(--text-primary); opacity: 0.8; transition: opacity 0.2s; font-size: 1.2rem;">
-                        ${social.name}
-                    </a>
-                `).join('')}
-            </div>
-            <p>&copy; ${new Date().getFullYear()} ${profile.name}. All rights reserved.</p>
-        </div>
-    </footer>
-  </section>
-`
+    <!-- Toast -->
+    <div class="toast" id="toast"></div>
+  `
+  renderPublicDocs()
+}
+
+// Initial fetch
+fetchProfileData()
