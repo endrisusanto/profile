@@ -4,8 +4,23 @@ const app = document.querySelector('#app')
 
 // ─── Global State ───────────────────────────────────────────────────────────
 let appData = {
-  profile: {},
-  projects: []
+  basics: {
+    name: '',
+    label: '',
+    image: '',
+    email: '',
+    phone: '',
+    url: '',
+    summary: '',
+    location: {},
+    profiles: []
+  },
+  skills: {},
+  work: [],
+  education: [],
+  activities: {},
+  volunteer: [],
+  awards: []
 }
 const ADMIN_PASSWORD = 'endri123'
 let sessionAuth = false
@@ -45,10 +60,143 @@ function showToast(msg, type = '') {
 }
 
 // ─── API calls ────────────────────────────────────────────────────────────────
+function normalizeProfileData(data) {
+  if (!data) return data
+  if (data.basics) return data // Already in new format
+  
+  const oldProfile = data.profile || {}
+  const oldProjects = data.projects || []
+  
+  const profiles = []
+  let email = ''
+  if (Array.isArray(oldProfile.socials)) {
+    oldProfile.socials.forEach(s => {
+      if (s.name === 'Email') {
+        email = s.url.replace('mailto:', '')
+      } else {
+        profiles.push({
+          network: (s.name || '').toLowerCase(),
+          username: (s.url || '').split('/').pop() || '',
+          url: s.url || ''
+        })
+      }
+    })
+  }
+  
+  const skills = {}
+  if (Array.isArray(oldProfile.skills)) {
+    oldProfile.skills.forEach(g => {
+      const categoryKey = (g.category || '').toLowerCase().replace(/[^a-z0-9]/g, '_') || 'skills'
+      skills[categoryKey] = (g.items || []).map(item => {
+        let level = 4
+        if (categoryKey.includes('languages') || categoryKey.includes('development') || categoryKey.includes('frameworks')) {
+          level = 80
+        }
+        return { name: item, level: level }
+      })
+    })
+  }
+  
+  const work = []
+  if (Array.isArray(oldProfile.experience)) {
+    oldProfile.experience.forEach((exp, idx) => {
+      const parts = (exp.period || '').split(' – ')
+      const startDate = parts[0] || ''
+      const endPart = parts[1] || ''
+      const isWorkingHere = endPart.toLowerCase().includes('present')
+      const endDate = isWorkingHere ? null : endPart.split(' · ')[0]
+      const years = (exp.period || '').includes('·') ? (exp.period || '').split(' · ')[1] : ''
+      
+      work.push({
+        id: String(idx + 1),
+        name: exp.company || '',
+        position: exp.role || '',
+        url: '',
+        startDate: startDate,
+        isWorkingHere: isWorkingHere,
+        endDate: endDate,
+        highlights: [exp.description || ''],
+        summary: `<p>${exp.description || ''}</p>`,
+        years: years
+      })
+    })
+  }
+  
+  const education = []
+  if (Array.isArray(oldProfile.education)) {
+    oldProfile.education.forEach((edu, idx) => {
+      const parts = (edu.period || '').split(' – ')
+      const startDate = parts[0] || ''
+      const endDate = parts[1] || ''
+      education.push({
+        id: String(idx + 1),
+        institution: edu.school || '',
+        url: '',
+        studyType: edu.degree || '',
+        area: '',
+        startDate: startDate,
+        isStudyingHere: false,
+        endDate: endDate,
+        score: '',
+        courses: []
+      })
+    })
+  }
+  
+  let involvements = ''
+  if (oldProjects.length) {
+    involvements = '<ul>' + oldProjects.map(p => `<li><strong>${p.name || ''}</strong>: ${p.description || ''} <em>(${Array.isArray(p.tags) ? p.tags.join(', ') : ''})</em></li>`).join('') + '</ul>'
+  }
+  
+  const awards = []
+  if (Array.isArray(oldProfile.certifications)) {
+    oldProfile.certifications.forEach((c, idx) => {
+      awards.push({
+        id: String(idx + 1),
+        title: c || '',
+        date: '',
+        awarder: '',
+        summary: ''
+      })
+    })
+  }
+  
+  return {
+    basics: {
+      name: oldProfile.name || '',
+      label: oldProfile.role || '',
+      image: oldProfile.photo || '',
+      email: email,
+      phone: '',
+      url: '',
+      summary: oldProfile.bio || '',
+      location: {
+        address: '',
+        postalCode: '',
+        city: oldProfile.location || '',
+        countryCode: '',
+        region: ''
+      },
+      objective: oldProfile.quote || '',
+      profiles: profiles
+    },
+    skills: skills,
+    work: work,
+    education: education,
+    activities: {
+      involvements: involvements,
+      achievements: ''
+    },
+    volunteer: [],
+    awards: awards
+  }
+}
+
 async function fetchProfileData() {
   try {
     const r = await fetch('/api/profile')
-    appData = await r.json()
+    const rawData = await r.json()
+    appData = normalizeProfileData(rawData)
     renderPage()
   } catch (err) {
     console.error('Failed to fetch profile data', err)
@@ -67,7 +215,7 @@ async function saveProfileData(newData) {
     })
     const res = await r.json()
     if (res.success) {
-      appData = newData
+      appData = normalizeProfileData(newData)
       showToast('Data berhasil disimpan!', 'success')
       renderPage()
     } else {
@@ -260,9 +408,111 @@ async function doUpload(file) {
 }
 
 // ─── Main Render ──────────────────────────────────────────────────────────────
-function renderPage() {
-  const { profile, projects } = appData
+// ─── Helper Renderers for New JSON Structure ──────────────────────────────────
+function renderSkillLevel(name, level) {
+  if (level > 5) {
+    // Percentage format (0-100)
+    return `
+      <div class="skill-item-bar">
+        <div class="skill-info-row">
+          <span class="skill-name">${name}</span>
+          <span class="skill-percentage">${level}%</span>
+        </div>
+        <div class="progress-bar-bg">
+          <div class="progress-bar-fill" style="width: ${level}%"></div>
+        </div>
+      </div>
+    `
+  } else {
+    // Scale format (1-5)
+    let dots = ''
+    for (let i = 1; i <= 5; i++) {
+      dots += `<span class="rating-dot ${i <= level ? 'active' : ''}"></span>`
+    }
+    return `
+      <div class="skill-item-dot">
+        <span class="skill-name">${name}</span>
+        <div class="rating-dots-container">${dots}</div>
+      </div>
+    `
+  }
+}
+
+function renderSkillsSection() {
+  const skillsObj = appData.skills || {}
+  const categories = Object.keys(skillsObj)
+  if (!categories.length) return ''
+
+  const categoryNames = {
+    languages: 'Programming Languages',
+    frameworks: 'Frameworks & Runtimes',
+    technologies: 'Technologies & Ecosystems',
+    libraries: 'Libraries',
+    databases: 'Databases',
+    practices: 'Methodologies & Practices',
+    tools: 'Developer Tools'
+  }
+
+  return `
+    <section class="card">
+      <h2>Skills &amp; Expertise</h2>
+      ${categories.map(cat => {
+        const list = skillsObj[cat] || []
+        if (!list.length) return ''
+        const title = categoryNames[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))
+        return `
+          <div class="skill-category-group">
+            <h3 class="skill-category-title">${title}</h3>
+            <div class="skill-items-list">
+              ${list.map(s => renderSkillLevel(s.name, s.level)).join('')}
+            </div>
+          </div>
+        `
+      }).join('')}
+    </section>
+  `
+}
+
+function renderWork(work) {
+  const dateStr = `${work.startDate} – ${work.isWorkingHere ? 'Present' : (work.endDate || '')}`
+  const periodStr = work.years ? `${dateStr} · ${work.years}` : dateStr
+  const descContent = work.summary || (work.highlights && work.highlights.length ? `<ul>${work.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : '')
   
+  return `
+    <div class="list-item">
+      <h3>${work.position}</h3>
+      <p style="font-weight:600;font-size:0.875rem;margin-top:2px;">${work.name}</p>
+      <p class="text-secondary" style="margin-top:2px;margin-bottom:8px;">${periodStr}</p>
+      <div class="markdown-content">${descContent}</div>
+    </div>
+  `
+}
+
+// ─── Main Render ──────────────────────────────────────────────────────────────
+function renderPage() {
+  const basics = appData.basics || {}
+  const name = basics.name || ''
+  const label = basics.label || ''
+  const photo = basics.image || '/assets/profile.jpeg'
+  const loc = basics.location || {}
+  const locationStr = [loc.city, loc.region, loc.countryCode].filter(Boolean).join(', ')
+
+  const email = basics.email ? { name: 'Email', url: `mailto:${basics.email}` } : null
+  const phone = basics.phone ? { name: 'Phone', url: `tel:${basics.phone.replace(/\s+/g, '')}` } : null
+  const website = basics.url ? { name: 'Website', url: basics.url } : null
+  const socialProfiles = (basics.profiles || []).map(p => {
+    const net = p.network || ''
+    return {
+      name: net ? net.charAt(0).toUpperCase() + net.slice(1) : 'Social',
+      url: p.url || '#'
+    }
+  })
+  const allContacts = [email, phone, website, ...socialProfiles].filter(Boolean)
+
+  const workList = appData.work || []
+  const educationList = appData.education || []
+  const awardsList = appData.awards || []
+
   app.innerHTML = `
     <div class="container">
       <div class="main-grid">
@@ -273,65 +523,67 @@ function renderPage() {
             <div class="banner"></div>
             <div class="profile-pic-container">
               <div class="profile-pic">
-                <img src="${profile.photo || '/assets/profile.jpeg'}" alt="${profile.name}" style="width: 100%; height: 100%; object-fit: cover;">
+                <img src="${photo}" alt="${name}" style="width: 100%; height: 100%; object-fit: cover;">
               </div>
             </div>
             <div class="profile-info">
-              <h1>${profile.name}</h1>
-              <p style="font-size:1rem;margin-top:4px;">${profile.role}</p>
-              <p class="text-secondary" style="margin-top:4px;">${profile.location}</p>
+              <h1>${name}</h1>
+              <p style="font-size:1rem;margin-top:4px;">${label}</p>
+              <p class="text-secondary" style="margin-top:4px;">${locationStr}</p>
               <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
-                ${profile.socials.map(s => `
-                  <a href="${s.url}" target="_blank" class="btn ${s.name === 'Email' ? 'btn-primary' : 'btn-secondary'}">${s.name}</a>
+                ${allContacts.map(c => `
+                  <a href="${c.url}" target="_blank" class="btn ${c.name === 'Email' ? 'btn-primary' : 'btn-secondary'}">${c.name}</a>
                 `).join('')}
               </div>
             </div>
           </section>
 
-          <!-- About -->
+          <!-- About & Objective -->
           <section class="card">
             <h2>About</h2>
-            <p style="font-size:0.875rem;">${profile.bio}</p>
-            <blockquote style="margin-top:12px;font-style:italic;color:var(--text-secondary);border-left:3px solid var(--border-color);padding-left:12px;font-size:0.875rem;">
-              ${profile.quote}
-            </blockquote>
+            <p style="font-size:0.875rem;line-height:1.6;color:var(--text-primary);">${basics.summary || ''}</p>
+            ${basics.objective ? `
+              <div style="margin-top:16px;padding:14px;background:var(--accent-light);border-left:4px solid var(--accent-color);border-radius:0 var(--border-radius) var(--border-radius) 0;">
+                <h4 style="font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent-color);margin-bottom:6px;">Career Objective</h4>
+                <p style="font-size:0.875rem;font-style:italic;color:var(--text-primary);line-height:1.5;margin:0;">${basics.objective}</p>
+              </div>
+            ` : ''}
           </section>
 
           <!-- Experience -->
           <section class="card">
             <h2>Experience</h2>
-            ${profile.experience.map(exp => `
-              <div class="list-item">
-                <h3>${exp.role}</h3>
-                <p style="font-weight:600;font-size:0.875rem;">${exp.company}</p>
-                <p class="text-secondary" style="margin-bottom:8px;">${exp.period}</p>
-                <p style="font-size:0.875rem;">${exp.description}</p>
-              </div>
-            `).join('')}
+            ${workList.map(w => renderWork(w)).join('')}
           </section>
 
-          <!-- Projects -->
-          <section class="card">
-            <h2>Projects</h2>
-            <div class="project-grid">
-              ${projects.map(p => `
-                <div class="project-card">
-                  <h3 style="margin-bottom:6px;">${p.name}</h3>
-                  <p style="font-size:0.8rem;flex-grow:1;margin-bottom:10px;color:var(--text-secondary);">${p.description}</p>
-                  <div>${p.tags.map(t => `<span class="tag">${t}</span>`).join('')}</div>
-                </div>
-              `).join('')}
-            </div>
-          </section>
+          <!-- Projects & Involvements -->
+          ${appData.activities && appData.activities.involvements ? `
+            <section class="card">
+              <h2>Projects &amp; Involvements</h2>
+              <div class="markdown-content">
+                ${appData.activities.involvements}
+              </div>
+            </section>
+          ` : ''}
+
+          <!-- Achievements -->
+          ${appData.activities && appData.activities.achievements ? `
+            <section class="card">
+              <h2>Achievements &amp; Milestones</h2>
+              <div class="markdown-content">
+                ${appData.activities.achievements}
+              </div>
+            </section>
+          ` : ''}
 
           <!-- Education -->
           <section class="card">
             <h2>Education</h2>
-            ${profile.education.map(e => `
+            ${educationList.map(e => `
               <div class="list-item">
-                <h3>${e.school}</h3>
-                <p style="font-size:0.875rem;">${e.degree}</p>
-                <p class="text-secondary">${e.period}</p>
+                <h3>${e.institution}</h3>
+                <p style="font-size:0.875rem;margin-top:2px;">${e.studyType}${e.area ? ' in ' + e.area : ''}</p>
+                <p class="text-secondary" style="margin-top:2px;">${e.startDate} – ${e.endDate || 'Present'}</p>
               </div>
             `).join('')}
           </section>
@@ -348,22 +600,17 @@ function renderPage() {
         <!-- ── Right Column ── -->
         <div>
           <!-- Skills -->
-          <section class="card">
-            <h2>Skills</h2>
-            ${profile.skills.map(g => `
-              <div style="margin-bottom:14px;">
-                <h3 style="font-size:0.825rem;margin-bottom:6px;color:var(--text-secondary);text-transform:uppercase;letter-spacing:0.05em;">${g.category}</h3>
-                <div>${g.items.map(i => `<span class="tag">${i}</span>`).join('')}</div>
-              </div>
-            `).join('')}
-          </section>
+          ${renderSkillsSection()}
 
           <!-- Certifications -->
           <section class="card">
             <h2>Licenses &amp; Certifications</h2>
-            ${profile.certifications.map(c => `
+            ${awardsList.map(a => `
               <div class="list-item">
-                <p style="font-size:0.875rem;font-weight:600;">${c}</p>
+                <h3>${a.title}</h3>
+                <p style="font-size:0.875rem;font-weight:600;margin-top:2px;">${a.awarder}</p>
+                ${a.date ? `<p class="text-secondary" style="margin-top:2px;">${a.date}</p>` : ''}
+                ${a.summary ? `<p style="font-size:0.8rem;margin-top:4px;color:var(--text-secondary);">${a.summary}</p>` : ''}
               </div>
             `).join('')}
           </section>
