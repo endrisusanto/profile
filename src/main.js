@@ -18,9 +18,12 @@ let appData = {
   skills: {},
   work: [],
   education: [],
-  activities: {},
-  volunteer: [],
-  awards: []
+  certifications: [],
+  projects: [],
+  awards: [],
+  innovations: [],
+  languages: [],
+  technicalInterests: []
 }
 const ADMIN_PASSWORD = 'endri123'
 let sessionAuth = false
@@ -62,7 +65,18 @@ function showToast(msg, type = '') {
 // ─── API calls ────────────────────────────────────────────────────────────────
 function normalizeProfileData(data) {
   if (!data) return data
-  if (data.basics) return data // Already in new format
+  if (data.basics) {
+    // Ensure all optional arrays are initialized to avoid undefined errors
+    data.projects = data.projects || []
+    data.work = data.work || []
+    data.education = data.education || []
+    data.certifications = data.certifications || []
+    data.awards = data.awards || []
+    data.innovations = data.innovations || []
+    data.languages = data.languages || []
+    data.technicalInterests = data.technicalInterests || []
+    return data
+  }
   
   const oldProfile = data.profile || {}
   const oldProjects = data.projects || []
@@ -444,6 +458,17 @@ function renderSkillsSection() {
   if (!categories.length) return ''
 
   const categoryNames = {
+    programming: 'Programming Languages',
+    automation: 'Process & Workflow Automation',
+    qa: 'Quality Assurance & Validation',
+    android_engineering: 'Android & Device Engineering',
+    application_analysis: 'Application Analysis & Modernization',
+    browser_api_integration: 'Browser API & Integration',
+    cybersecurity_testing: 'Cybersecurity & Performance Testing',
+    industrial_automation: 'Industrial Automation',
+    embedded_iot: 'Embedded Systems & IoT',
+    infrastructure: 'Infrastructure & DevOps',
+    smart_systems: 'Smart Home & Edge Systems',
     languages: 'Programming Languages',
     frameworks: 'Frameworks & Runtimes',
     technologies: 'Technologies & Ecosystems',
@@ -456,19 +481,21 @@ function renderSkillsSection() {
   return `
     <section class="card">
       <h2>Skills &amp; Expertise</h2>
-      ${categories.map(cat => {
-        const list = skillsObj[cat] || []
-        if (!list.length) return ''
-        const title = categoryNames[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))
-        return `
-          <div class="skill-category-group">
-            <h3 class="skill-category-title">${title}</h3>
-            <div class="skill-items-list">
-              ${list.map(s => renderSkillLevel(s.name, s.level)).join('')}
+      <div class="skills-main-grid">
+        ${categories.map(cat => {
+          const list = skillsObj[cat] || []
+          if (!list.length) return ''
+          const title = categoryNames[cat] || (cat.charAt(0).toUpperCase() + cat.slice(1))
+          return `
+            <div class="skill-category-group" style="margin-bottom:0;">
+              <h3 class="skill-category-title">${title}</h3>
+              <div class="skill-items-list">
+                ${list.map(s => renderSkillLevel(s.name, s.level)).join('')}
+              </div>
             </div>
-          </div>
-        `
-      }).join('')}
+          `
+        }).join('')}
+      </div>
     </section>
   `
 }
@@ -485,6 +512,127 @@ function renderWork(work) {
       <p class="text-secondary" style="margin-top:2px;margin-bottom:8px;">${periodStr}</p>
       <div class="markdown-content">${descContent}</div>
     </div>
+  `
+}
+
+function renderProjectsSection() {
+  const projects = appData.projects || []
+  if (!projects.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Projects</h2>
+      <div class="project-grid">
+        ${projects.map(p => `
+          <div class="project-card">
+            <h3 style="margin-bottom:6px; display:flex; justify-content:space-between; align-items:center;">
+              <span>${p.name}</span>
+              ${p.url ? `<a href="${p.url}" target="_blank" style="font-size: 0.8rem; font-weight: 500;">Link</a>` : ''}
+            </h3>
+            <p style="font-size:0.825rem;flex-grow:1;margin-bottom:12px;color:var(--text-secondary);line-height:1.5;">${p.description}</p>
+            <div style="margin-top:auto; display:flex; flex-wrap:wrap; gap:4px;">
+              ${(p.technologies || []).map(t => `<span class="tag" style="margin:0;">${t}</span>`).join('')}
+            </div>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `
+}
+
+function renderInnovationsSection() {
+  const innovations = appData.innovations || []
+  if (!innovations.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Innovations &amp; Productivity Improvements</h2>
+      <div style="display:flex; flex-direction:column; gap:12px;">
+        ${innovations.map(inv => {
+          const isAdopted = (inv.status || '').toLowerCase().includes('adopt') && !(inv.status || '').toLowerCase().includes('non')
+          const statusColor = isAdopted ? 'var(--success-color)' : 'var(--text-secondary)'
+          const statusBg = isAdopted ? 'rgba(5, 118, 66, 0.08)' : '#dee2e6'
+          return `
+            <div style="border: 1px solid var(--border-color); padding: 12px 14px; border-radius: var(--border-radius); transition: all 0.2s;">
+              <h3 style="font-size: 0.95rem; line-height: 1.4; margin-bottom: 6px;">${inv.title}</h3>
+              <div style="display:flex; gap:8px; flex-wrap:wrap; align-items:center; font-size:0.75rem; font-weight:600;">
+                ${inv.classification ? `<span style="background:var(--accent-light); color:var(--accent-color); padding: 2px 8px; border-radius: 4px;">${inv.classification}</span>` : ''}
+                ${inv.status ? `<span style="background:${statusBg}; color:${statusColor}; padding: 2px 8px; border-radius: 4px;">${inv.status}</span>` : ''}
+                ${inv.impact ? `<span style="background:rgba(230, 126, 34, 0.1); color:#e67e22; padding: 2px 8px; border-radius: 4px; border: 1px dashed #e67e22;">★ ${inv.impact}</span>` : ''}
+              </div>
+            </div>
+          `
+        }).join('')}
+      </div>
+    </section>
+  `
+}
+
+function renderCertificationsSection() {
+  const certs = appData.certifications || []
+  if (!certs.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Licenses &amp; Certifications</h2>
+      ${certs.map(c => `
+        <div class="list-item">
+          <h3>${c.name}</h3>
+          <p class="text-secondary" style="margin-top:2px; font-size:0.8rem;">${c.issuer || ''}</p>
+        </div>
+      `).join('')}
+    </section>
+  `
+}
+
+function renderAwardsSection() {
+  const awards = appData.awards || []
+  if (!awards.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Awards &amp; Recognition</h2>
+      ${awards.map(a => `
+        <div class="list-item">
+          <h3>${a.title}</h3>
+          <p style="font-weight:600;font-size:0.875rem;margin-top:2px;">${a.awarder}</p>
+          ${a.date ? `<p class="text-secondary" style="margin-top:2px; font-size:0.8rem;">${a.date}</p>` : ''}
+        </div>
+      `).join('')}
+    </section>
+  `
+}
+
+function renderLanguagesSection() {
+  const langs = appData.languages || []
+  if (!langs.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Languages</h2>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        ${langs.map((l, index) => `
+          <div style="display:flex; flex-direction:column; gap:2px; font-size:0.875rem; ${index < langs.length - 1 ? 'border-bottom: 1px solid var(--border-color); padding-bottom: 8px;' : ''}">
+            <span style="font-weight:600; color: var(--text-primary);">${l.language}</span>
+            <span class="text-secondary" style="font-size:0.8rem;">${l.fluency}</span>
+          </div>
+        `).join('')}
+      </div>
+    </section>
+  `
+}
+
+function renderInterestsSection() {
+  const interests = appData.technicalInterests || []
+  if (!interests.length) return ''
+  
+  return `
+    <section class="card">
+      <h2>Technical Interests</h2>
+      <div style="display:flex; flex-wrap:wrap; gap:6px;">
+        ${interests.map(interest => `<span class="tag" style="background-color: var(--accent-light); color: var(--accent-color); font-weight: 550; font-size:0.75rem; padding:4px 8px; margin:0;">${interest}</span>`).join('')}
+      </div>
+    </section>
   `
 }
 
@@ -511,7 +659,6 @@ function renderPage() {
 
   const workList = appData.work || []
   const educationList = appData.education || []
-  const awardsList = appData.awards || []
 
   app.innerHTML = `
     <div class="container">
@@ -556,20 +703,29 @@ function renderPage() {
             ${workList.map(w => renderWork(w)).join('')}
           </section>
 
-          <!-- Projects & Involvements -->
+          <!-- Skills & Expertise -->
+          ${renderSkillsSection()}
+
+          <!-- Innovations -->
+          ${renderInnovationsSection()}
+
+          <!-- Projects -->
+          ${renderProjectsSection()}
+
+          <!-- Legacy Involvements (Fallback) -->
           ${appData.activities && appData.activities.involvements ? `
             <section class="card">
-              <h2>Projects &amp; Involvements</h2>
+              <h2>Projects &amp; Involvements (Legacy)</h2>
               <div class="markdown-content">
                 ${appData.activities.involvements}
               </div>
             </section>
           ` : ''}
 
-          <!-- Achievements -->
+          <!-- Legacy Achievements (Fallback) -->
           ${appData.activities && appData.activities.achievements ? `
             <section class="card">
-              <h2>Achievements &amp; Milestones</h2>
+              <h2>Achievements &amp; Milestones (Legacy)</h2>
               <div class="markdown-content">
                 ${appData.activities.achievements}
               </div>
@@ -584,6 +740,14 @@ function renderPage() {
                 <h3>${e.institution}</h3>
                 <p style="font-size:0.875rem;margin-top:2px;">${e.studyType}${e.area ? ' in ' + e.area : ''}</p>
                 <p class="text-secondary" style="margin-top:2px;">${e.startDate} – ${e.endDate || 'Present'}</p>
+                ${e.location ? `<p class="text-secondary" style="font-size:0.8rem;margin-top:2px;">📍 ${e.location}</p>` : ''}
+                ${e.highlights && e.highlights.length ? `
+                  <div class="markdown-content" style="margin-top:8px;">
+                    <ul>
+                      ${e.highlights.map(h => `<li>${h}</li>`).join('')}
+                    </ul>
+                  </div>
+                ` : ''}
               </div>
             `).join('')}
           </section>
@@ -599,21 +763,17 @@ function renderPage() {
 
         <!-- ── Right Column ── -->
         <div>
-          <!-- Skills -->
-          ${renderSkillsSection()}
-
           <!-- Certifications -->
-          <section class="card">
-            <h2>Licenses &amp; Certifications</h2>
-            ${awardsList.map(a => `
-              <div class="list-item">
-                <h3>${a.title}</h3>
-                <p style="font-size:0.875rem;font-weight:600;margin-top:2px;">${a.awarder}</p>
-                ${a.date ? `<p class="text-secondary" style="margin-top:2px;">${a.date}</p>` : ''}
-                ${a.summary ? `<p style="font-size:0.8rem;margin-top:4px;color:var(--text-secondary);">${a.summary}</p>` : ''}
-              </div>
-            `).join('')}
-          </section>
+          ${renderCertificationsSection()}
+
+          <!-- Awards -->
+          ${renderAwardsSection()}
+
+          <!-- Languages -->
+          ${renderLanguagesSection()}
+
+          <!-- Technical Interests -->
+          ${renderInterestsSection()}
         </div>
       </div>
     </div>

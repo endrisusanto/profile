@@ -21,84 +21,120 @@ if (!fs.existsSync(UPLOADS_DIR)) {
 const initialProfileData = {
   "basics": {
     "name": "Endri Susanto",
-    "label": "Automation Engineer | Software Quality Assurance",
-    "image": "",
+    "label": "Senior Automation Engineer | Software Quality Assurance | Product Engineering",
     "email": "gmail@endrisusanto.my.id",
     "phone": "+62 851-7697-0180",
     "url": "https://github.com/endrisusanto",
-    "summary": "Automation-focused Software Quality Assurance Engineer with over 10 years of experience at Samsung Electronics Indonesia, specializing in Google Build Approval, software validation, process automation, internal web application development, and engineering workflow optimization.",
+    "summary": "Automation-focused Software Quality Assurance Engineer with 10+ years of experience at Samsung Electronics Indonesia specializing in Google Build Approval, Android software validation, process automation, engineering productivity solutions, and internal tool development. Experienced in automation platform development, browser extension development, API integration, application analysis, software modernization, self-hosted infrastructure, and cross-platform desktop application development using Rust/Tauri.",
     "location": {
-      "address": "",
-      "postalCode": "",
       "city": "Karawang",
-      "countryCode": "ID",
-      "region": "West Java"
+      "countryCode": "ID"
     },
     "relExp": "10+ Years",
     "totalExp": "10+ Years",
-    "objective": "Seeking an Automation Engineer role where I can apply my expertise in software quality assurance, process automation, infrastructure management, and application development to build scalable solutions that improve productivity, reliability, and operational efficiency.",
+    "objective": "Seeking a challenging Automation Engineer role where I can apply my expertise in software quality assurance, process automation, application modernization, infrastructure management, and engineering tool development to build scalable solutions that improve productivity, reliability, and operational efficiency.",
     "profiles": [
       {
-        "network": "linkedin",
+        "network": "LinkedIn",
         "username": "endrisusanto",
         "url": "https://www.linkedin.com/in/endrisusanto/"
       },
       {
-        "network": "github",
+        "network": "GitHub",
         "username": "endrisusanto",
         "url": "https://github.com/endrisusanto"
       }
     ]
   },
   "skills": {
-    "languages": [
-      { "name": "Python", "level": 90 },
-      { "name": "PHP", "level": 85 },
-      { "name": "JavaScript", "level": 80 },
-      { "name": "TypeScript", "level": 75 },
-      { "name": "Rust", "level": 65 },
-      { "name": "SQL", "level": 85 }
+    "programming": [
+      { "name": "Python", "level": 5 },
+      { "name": "PHP", "level": 5 },
+      { "name": "JavaScript", "level": 4 },
+      { "name": "TypeScript", "level": 4 },
+      { "name": "Rust", "level": 3 },
+      { "name": "SQL", "level": 5 }
     ],
-    "frameworks": [
-      { "name": "Rust Tauri", "level": 70 },
-      { "name": "Node.js", "level": 70 },
-      { "name": "Bootstrap", "level": 80 },
-      { "name": "Tailwind CSS", "level": 75 }
-    ],
-    "technologies": [
+    "automation": [
       { "name": "Power Automate", "level": 5 },
       { "name": "AutoHotkey", "level": 5 },
-      { "name": "Docker", "level": 4 },
-      { "name": "Cloudflare Tunnel", "level": 4 },
-      { "name": "Self Hosted Server", "level": 4 },
-      { "name": "Home Assistant", "level": 4 },
-      { "name": "Frigate NVR", "level": 4 },
-      { "name": "Local AI / LLM", "level": 4 }
+      { "name": "Python Automation", "level": 5 },
+      { "name": "RPA", "level": 5 },
+      { "name": "Browser Automation", "level": 4 },
+      { "name": "Workflow Automation", "level": 5 }
     ],
-    "libraries": [
-      { "name": "jQuery", "level": 4 },
-      { "name": "DataTables", "level": 4 },
-      { "name": "Chart.js", "level": 4 }
-    ],
-    "databases": [
-      { "name": "MySQL", "level": 5 },
-      { "name": "MariaDB", "level": 4 }
-    ],
-    "practices": [
-      { "name": "Process Automation", "level": 5 },
-      { "name": "Software Validation", "level": 5 },
+    "qa": [
+      { "name": "CTS", "level": 5 },
+      { "name": "GTS", "level": 5 },
+      { "name": "CTS Verifier", "level": 5 },
       { "name": "Google Build Approval", "level": 5 },
-      { "name": "CTS / GTS Testing", "level": 5 },
-      { "name": "Workflow Optimization", "level": 5 },
+      { "name": "Android Validation", "level": 5 },
+      { "name": "Software Validation", "level": 5 },
       { "name": "Root Cause Analysis", "level": 4 }
     ],
-    "tools": [
-      { "name": "Git", "level": 5 },
-      { "name": "GitHub", "level": 5 },
-      { "name": "Linux", "level": 5 },
+    "android_engineering": [
       { "name": "ADB", "level": 5 },
       { "name": "Tradefed", "level": 5 },
-      { "name": "Jira", "level": 4 }
+      { "name": "Firmware Flashing", "level": 5 },
+      { "name": "Device Provisioning", "level": 4 },
+      { "name": "ODIN Process", "level": 5 },
+      { "name": "Android APK Analysis", "level": 4 }
+    ],
+    "application_analysis": [
+      { "name": "Android APK Analysis", "level": 4 },
+      { "name": "Windows Desktop Application Analysis", "level": 4 },
+      { "name": "Linux Desktop Application Analysis", "level": 4 },
+      { "name": "Legacy Application Modernization", "level": 4 },
+      { "name": "Rust/Tauri Migration", "level": 3 },
+      { "name": "Cross-Platform Desktop Application Development", "level": 3 }
+    ],
+    "browser_api_integration": [
+      { "name": "Browser Extension Development", "level": 4 },
+      { "name": "Chrome Extension Development", "level": 4 },
+      { "name": "Fetch API", "level": 4 },
+      { "name": "REST API Integration", "level": 4 },
+      { "name": "WebSocket Integration", "level": 4 }
+    ],
+    "cybersecurity_testing": [
+      { "name": "Application Security Assessment", "level": 3 },
+      { "name": "OWASP Principles", "level": 3 },
+      { "name": "API Security Testing", "level": 3 },
+      { "name": "Apache JMeter", "level": 4 },
+      { "name": "Performance Testing", "level": 4 },
+      { "name": "Vulnerability Analysis", "level": 3 }
+    ],
+    "industrial_automation": [
+      { "name": "PLC Programming", "level": 3 },
+      { "name": "SCADA Systems", "level": 3 },
+      { "name": "Industrial Control Systems", "level": 3 },
+      { "name": "Electrical Control Panels", "level": 3 },
+      { "name": "Commercial Wiring", "level": 4 },
+      { "name": "Industrial Instrumentation", "level": 3 }
+    ],
+    "embedded_iot": [
+      { "name": "Microcontroller Programming", "level": 4 },
+      { "name": "ESP32", "level": 4 },
+      { "name": "Arduino", "level": 4 },
+      { "name": "MQTT", "level": 3 },
+      { "name": "Sensor Integration", "level": 4 },
+      { "name": "IoT Systems", "level": 4 }
+    ],
+    "infrastructure": [
+      { "name": "Linux", "level": 5 },
+      { "name": "Ubuntu", "level": 5 },
+      { "name": "Fedora", "level": 5 },
+      { "name": "Docker", "level": 4 },
+      { "name": "Cloudflare Tunnel", "level": 4 },
+      { "name": "KVM Virtualization", "level": 4 },
+      { "name": "Self Hosted Services", "level": 4 },
+      { "name": "Git", "level": 5 },
+      { "name": "GitHub", "level": 5 }
+    ],
+    "smart_systems": [
+      { "name": "Home Assistant", "level": 4 },
+      { "name": "Frigate NVR", "level": 4 },
+      { "name": "Smart Home Automation", "level": 4 },
+      { "name": "Edge Computing", "level": 3 }
     ]
   },
   "work": [
@@ -106,86 +142,206 @@ const initialProfileData = {
       "id": "1",
       "name": "Samsung Electronics Indonesia",
       "position": "Software Quality Assurance Engineer",
-      "url": "",
+      "department": "Product Engineering",
       "startDate": "Jan 2016",
-      "isWorkingHere": true,
       "endDate": null,
+      "isWorkingHere": true,
+      "location": "Cikarang, Indonesia",
+      "years": "10+ Years",
+      "summary": "Software QA Engineer under Product Engineering Department focusing on Android software validation, Google Build Approval processes, automation development, productivity improvement, and engineering workflow optimization.",
       "highlights": [
-        "Performed Google Build Approval testing including CTS, GTS, and CTS Verifier.",
-        "Developed automation tools to reduce manual testing effort and improve engineering productivity.",
-        "Built internal web applications for task management, release tracking, asset management, and workflow automation.",
-        "Managed multi-device Android validation environments using ADB, Tradefed, and Linux infrastructure.",
-        "Implemented productivity improvement projects with measurable time and cost savings.",
-        "Received Best Employee recognition in 2025."
-      ],
-      "summary": "<ul><li>Responsible for software quality assurance activities under the Product Engineering department.</li><li>Handled Google Build Approval validation including CTS, GTS, CTS Verifier, and Android software compliance testing.</li><li>Developed internal automation tools and web-based applications to streamline engineering workflows.</li><li>Implemented automation projects such as Quickbuild binary retrieval, file sorting automation, companion release reference sheet, and BAS auto-fill extension.</li><li>Contributed to productivity improvement and innovation programs with adopted projects and measurable business impact.</li></ul>",
-      "years": "10+ Years"
+        "Performed Google Build Approval testing including CTS, GTS, CTS Verifier, and Android software validation.",
+        "Developed automation tools and internal web applications that reduced manual effort and improved engineering productivity.",
+        "Managed multi-device Android validation environments using ADB, Tradefed, Linux, and automation frameworks.",
+        "Designed workflow automation solutions using Power Automate, AutoHotkey, Python, PHP, JavaScript, and SQL.",
+        "Built browser extensions and API integration tools to automate repetitive engineering workflows.",
+        "Performed application analysis for Android APK, Windows desktop applications, and Linux desktop applications to support automation and modernization initiatives.",
+        "Rebuilt and modernized desktop tools using Rust/Tauri for cross-platform automation workflows.",
+        "Implemented self-hosted engineering solutions using Linux, Docker, Cloudflare Tunnel, and internal web services.",
+        "Used Apache JMeter and API testing approaches for performance testing and system validation.",
+        "Collaborated with Product Engineering teams to improve software quality, release readiness, and process efficiency."
+      ]
     }
   ],
   "education": [
     {
       "id": "1",
       "institution": "Universitas Diponegoro",
-      "url": "https://www.undip.ac.id/",
-      "studyType": "Diploma 3",
+      "studyType": "Diploma 3 (D3)",
       "area": "Electrical Engineering",
       "startDate": "2012",
-      "isStudyingHere": false,
       "endDate": "2015",
-      "score": "",
-      "courses": []
+      "location": "Semarang, Indonesia",
+      "highlights": [
+        "Electrical and Electronics Engineering",
+        "Industrial Automation Fundamentals",
+        "PLC and SCADA Systems",
+        "Industrial Control Systems",
+        "Instrumentation and Electrical Systems"
+      ]
     }
   ],
-  "activities": {
-    "involvements": "<ul><li>Developed FlashKit, an automated firmware flashing and Android device provisioning platform.</li><li>Created ATM Launcher, a desktop dashboard for automation workflow execution and monitoring.</li><li>Built BAS Auto Fill Extension to automate form filling on Samsung Build Approval Server and reduce human error.</li><li>Developed GBA Task Manager for Google Build Approval task tracking and team coordination.</li><li>Built Companion Release Cheatsheet for release reference tracking and documentation.</li><li>Explored self-hosted infrastructure, Docker, Cloudflare Tunnel, Home Assistant, Frigate NVR, and local AI/LLM deployment.</li></ul>",
-    "achievements": "<ul><li>Best Employee 2025 at Samsung Electronics Indonesia.</li><li>10 Years Long Service Recognition at Samsung Electronics Indonesia.</li><li>Automated Rebuild and Retrieval System for Binary in Quickbuild: Class 5 Adopt, 49,896 hours saved.</li><li>Streamlining File Organization with Automated Sorting Solutions: Class 5 Adopt, 17,846 hours saved.</li><li>Implementing Ethernet Standardization for Optimizing Network Performance: Class 4 Adopt, impact $14,932.</li><li>Web-Based Companion Release Reference Sheet: Class 5 Adopt, impact $1,393.</li><li>Air Quality Monitoring Network implementation for EHS department.</li></ul>"
-  },
-  "volunteer": [],
+  "certifications": [
+    {
+      "name": "Google Build Approval AOSP",
+      "issuer": "Samsung Electronics Vietnam"
+    },
+    {
+      "name": "Commercial Wiring",
+      "issuer": "BLKI Semarang"
+    },
+    {
+      "name": "QEHS and ISO Training",
+      "issuer": "Bina Profesi Institute - Konstan Group"
+    },
+    {
+      "name": "Rust Programming From Beginner to Advanced",
+      "issuer": "Udemy"
+    }
+  ],
+  "projects": [
+    {
+      "name": "FlashKit",
+      "url": "https://github.com/endrisusanto/FlashKit",
+      "description": "Fully automated firmware flashing and Android device provisioning platform.",
+      "technologies": ["TypeScript", "ADB", "Android", "Automation"]
+    },
+    {
+      "name": "ATM Launcher",
+      "url": "https://github.com/endrisusanto/ATM-Launcher",
+      "description": "Rust-based desktop automation dashboard for workflow execution and monitoring.",
+      "technologies": ["Rust", "Tauri", "Desktop App", "Automation"]
+    },
+    {
+      "name": "Auto Fill Extension",
+      "url": "https://github.com/endrisusanto/auto-fill-extension",
+      "description": "Browser extension for automating Samsung Build Approval Server form submission.",
+      "technologies": ["JavaScript", "Chrome Extension", "Fetch API", "Browser Automation"]
+    },
+    {
+      "name": "Companion Release Cheatsheet",
+      "url": "https://github.com/endrisusanto/companion-release-cheatsheet",
+      "description": "PHP-based release management and reference tracking web application.",
+      "technologies": ["PHP", "MySQL", "Web Application"]
+    },
+    {
+      "name": "GBA Task Manager",
+      "url": "https://github.com/endrisusanto/project_manager",
+      "description": "Web-based project and task management system for Google Build Approval workflows.",
+      "technologies": ["PHP", "MySQL", "Bootstrap", "Workflow Management"]
+    },
+    {
+      "name": "Warga Ambyar",
+      "url": "https://github.com/endrisusanto/warga_ambyar",
+      "description": "Full-stack Node.js application for community resident and contribution management.",
+      "technologies": ["Node.js", "EJS", "JavaScript"]
+    }
+  ],
   "awards": [
     {
-      "id": "1",
       "title": "Best Employee 2025",
-      "date": "2025",
       "awarder": "Samsung Electronics Indonesia",
-      "summary": "Recognition for outstanding performance and contribution."
+      "date": "2025"
     },
     {
-      "id": "2",
       "title": "10 Years Long Service Recognition",
-      "date": "2026",
       "awarder": "Samsung Electronics Indonesia",
-      "summary": "Recognition for long-term service and contribution."
+      "date": "2026"
     },
     {
-      "id": "3",
-      "title": "Google Build Approval AOSP",
-      "date": "",
-      "awarder": "Samsung Electronics Vietnam",
-      "summary": "Certification related to Google Build Approval AOSP process."
-    },
-    {
-      "id": "4",
-      "title": "Commercial Wiring",
-      "date": "",
-      "awarder": "BLKI Semarang",
-      "summary": "Commercial wiring certification."
-    },
-    {
-      "id": "5",
-      "title": "QEHS and ISO Training",
-      "date": "",
-      "awarder": "Bina Profesi Institute - Konstan Group",
-      "summary": "QEHS and ISO training certification."
-    },
-    {
-      "id": "6",
-      "title": "Rust Programming From Beginner to Advanced",
-      "date": "",
-      "awarder": "Udemy",
-      "summary": "Rust programming course completion."
+      "title": "Best Improvement - Air Quality Monitoring Network Implementation",
+      "awarder": "Samsung Electronics Indonesia / EHS Department",
+      "date": ""
     }
+  ],
+  "innovations": [
+    {
+      "title": "Automated Rebuild and Retrieval System for Binary in Quickbuild",
+      "classification": "Class 5",
+      "status": "Adopt",
+      "impact": "49,896 Hours Saved"
+    },
+    {
+      "title": "Streamlining File Organization with Automated Sorting Solutions",
+      "classification": "Class 5",
+      "status": "Adopt",
+      "impact": "17,846 Hours Saved"
+    },
+    {
+      "title": "Implementing Ethernet Standardization for Optimizing Network Performance",
+      "classification": "Class 4",
+      "status": "Adopt",
+      "impact": "14,932 USD"
+    },
+    {
+      "title": "Web-Based Companion Release Reference Sheet",
+      "classification": "Class 5",
+      "status": "Adopt",
+      "impact": "1,393 USD"
+    },
+    {
+      "title": "Standardization USB 3.0 on Flashing ODIN Process",
+      "classification": "Class 5",
+      "status": "Adopt",
+      "impact": "696 USD"
+    },
+    {
+      "title": "Standardization SSD/NVMe M.2 for ODIN Binary Flashing Efficiency",
+      "classification": "Class 5",
+      "status": "Adopt",
+      "impact": "410 USD"
+    },
+    {
+      "title": "Productivity Improvement through Web-Based Boot Images Companion",
+      "classification": "Non Adopt",
+      "status": "Non Adopt",
+      "impact": "720 USD"
+    },
+    {
+      "title": "U2Net AI Model for Background Removal in Image Processing",
+      "classification": "Non Adopt",
+      "status": "Non Adopt",
+      "impact": "275 USD"
+    },
+    {
+      "title": "Web Application for Image Cropping and Compression",
+      "classification": "Non Adopt",
+      "status": "Non Adopt",
+      "impact": "275 USD"
+    }
+  ],
+  "languages": [
+    {
+      "language": "Indonesian",
+      "fluency": "Native"
+    },
+    {
+      "language": "English",
+      "fluency": "Full Professional Proficiency"
+    }
+  ],
+  "technicalInterests": [
+    "AI Agents",
+    "Local LLM Deployment",
+    "Application Modernization",
+    "Android APK Analysis",
+    "Windows Desktop Application Analysis",
+    "Rust/Tauri Desktop Applications",
+    "Browser Extension Development",
+    "Cybersecurity",
+    "API Security Testing",
+    "JMeter Performance Testing",
+    "Home Assistant",
+    "Frigate NVR",
+    "Self Hosted Infrastructure",
+    "Cloudflare Tunnel",
+    "Docker",
+    "KVM Virtualization",
+    "IoT Automation",
+    "Industrial Automation",
+    "Smart Manufacturing"
   ]
-};
+}
 
 // Multer storage
 const storage = multer.diskStorage({
