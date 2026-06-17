@@ -30,18 +30,28 @@
   padding: 0;
 }
 
+html {
+  overflow-x: hidden;
+}
+
 body {
   font-family: var(--font-family);
   background-color: var(--bg-primary);
   color: var(--text-primary);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  overflow-x: hidden;
 }
 
 #app {
   width: 100%;
   min-height: 100vh;
-  padding: var(--spacing-xl) 0 80px;
+  padding: var(--spacing-lg) 0 60px;
+}
+@media (min-width: 768px) {
+  #app {
+    padding: var(--spacing-xl) 0 80px;
+  }
 }
 
 a {
@@ -91,6 +101,7 @@ a:hover { color: var(--accent-hover); text-decoration: underline; }
   margin-top: -76px;
   margin-left: 24px;
   margin-bottom: 12px;
+  display: inline-flex;
 }
 .profile-pic {
   width: 152px;
@@ -423,15 +434,21 @@ h3 { font-size: 0.95rem; }
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
+  gap: 12px;
 }
 .skill-name {
   font-weight: 550;
   color: var(--text-primary);
+  flex: 1;
+  min-width: 0;
+  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 .skill-percentage {
   color: var(--accent-color);
   font-weight: 600;
   font-size: 0.8rem;
+  flex-shrink: 0;
 }
 .progress-bar-bg {
   width: 100%;
@@ -453,10 +470,12 @@ h3 { font-size: 0.95rem; }
   justify-content: space-between;
   align-items: center;
   font-size: 0.85rem;
+  gap: 12px;
 }
 .rating-dots-container {
   display: flex;
   gap: 6px;
+  flex-shrink: 0;
 }
 .rating-dot {
   width: 8px;
@@ -509,5 +528,61 @@ h3 { font-size: 0.95rem; }
 @media (min-width: 1200px) {
   .skills-main-grid {
     grid-template-columns: repeat(3, 1fr);
+  }
+}
+
+/* ── Profile Actions Layout ── */
+.profile-actions {
+  margin-top: 16px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+/* ── Responsive Mobile Enhancements ── */
+@media (max-width: 576px) {
+  .card {
+    padding: var(--spacing-md);
+  }
+  .profile-pic-container {
+    display: flex;
+    margin-left: 0;
+    justify-content: center;
+    margin-top: -60px;
+    margin-bottom: 8px;
+  }
+  .profile-pic {
+    width: 120px;
+    height: 120px;
+  }
+  .profile-info {
+    text-align: center;
+    padding: 0 16px 20px;
+  }
+  .profile-info h1 {
+    font-size: 1.35rem;
+  }
+  .profile-actions {
+    justify-content: center;
+  }
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+  .project-card h3 span {
+    flex: 1;
+    min-width: 0;
+    word-break: break-word;
+  }
+  .doc-item {
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+  .doc-info {
+    width: calc(100% - 48px); /* doc icon is 36px + gap 12px */
+  }
+  .doc-actions {
+    width: 100%;
+    justify-content: flex-end;
+    margin-top: 4px;
   }
 }

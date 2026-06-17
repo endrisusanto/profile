@@ -677,7 +677,7 @@ function renderPage() {
               <h1>${name}</h1>
               <p style="font-size:1rem;margin-top:4px;">${label}</p>
               <p class="text-secondary" style="margin-top:4px;">${locationStr}</p>
-              <div style="margin-top:16px;display:flex;gap:8px;flex-wrap:wrap;">
+              <div class="profile-actions">
                 ${allContacts.map(c => `
                   <a href="${c.url}" target="_blank" class="btn ${c.name === 'Email' ? 'btn-primary' : 'btn-secondary'}">${c.name}</a>
                 `).join('')}
