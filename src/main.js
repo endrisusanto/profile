@@ -25,8 +25,8 @@ let appData = {
   languages: [],
   technicalInterests: []
 }
-const ADMIN_PASSWORD = 'endri123'
 let sessionAuth = false
+let sessionPassword = '' // ponytail: holds typed password for session only
 
 // ─── SVG Icons ───────────────────────────────────────────────────────────────
 const icons = {
@@ -223,7 +223,7 @@ async function saveProfileData(newData) {
       method: 'POST',
       headers: { 
         'Content-Type': 'application/json',
-        'authorization': ADMIN_PASSWORD 
+        'authorization': sessionPassword 
       },
       body: JSON.stringify(newData)
     })
@@ -253,7 +253,7 @@ async function uploadFile(file) {
   fd.append('file', file)
   const r = await fetch('/api/upload', {
     method: 'POST',
-    headers: { 'authorization': ADMIN_PASSWORD },
+    headers: { 'authorization': sessionPassword },
     body: fd
   })
   return r.json()
@@ -262,7 +262,7 @@ async function uploadFile(file) {
 async function deleteFile(filename) {
   const r = await fetch(`/api/files/${encodeURIComponent(filename)}`, {
     method: 'DELETE',
-    headers: { 'authorization': ADMIN_PASSWORD }
+    headers: { 'authorization': sessionPassword }
   })
   return r.json()
 }
@@ -385,15 +385,28 @@ function showSettingsPanel() {
 
 window.checkPassword = function () {
   const val = document.getElementById('pwd-input').value
-  if (val === ADMIN_PASSWORD) {
-    sessionAuth = true
-    document.getElementById('auth-error').textContent = ''
-    showSettingsPanel()
-  } else {
+  // ponytail: send to server, don't validate client-side
+  fetch('/api/profile', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json', 'authorization': val },
+    body: JSON.stringify(appData)
+  }).then(r => r.json()).then(res => {
+    if (res.success || res.error !== 'Unauthorized') {
+      // Any non-401 response means password is correct
+      sessionPassword = val
+      sessionAuth = true
+      document.getElementById('auth-error').textContent = ''
+      showSettingsPanel()
+    } else {
+      document.getElementById('auth-error').textContent = 'Password salah, coba lagi.'
+      document.getElementById('pwd-input').value = ''
+      document.getElementById('pwd-input').focus()
+    }
+  }).catch(() => {
     document.getElementById('auth-error').textContent = 'Password salah, coba lagi.'
     document.getElementById('pwd-input').value = ''
     document.getElementById('pwd-input').focus()
-  }
+  })
 }
 
 window.triggerFileInput = function () {

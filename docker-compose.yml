@@ -5,6 +5,8 @@ services:
     ports:
       - "8767:80"
     restart: always
+    env_file:
+      - .env
     environment:
       - PORT=80
     volumes:

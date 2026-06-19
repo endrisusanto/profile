@@ -4,6 +4,9 @@ import cors from 'cors';
 import fs from 'fs';
 import path from 'path';
 import { fileURLToPath } from 'url';
+import { config } from 'dotenv';
+
+config(); // ponytail: load .env
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = path.dirname(__filename);
@@ -366,7 +369,7 @@ app.use('/uploads', express.static(UPLOADS_DIR));
 // Simple password verification middleware
 const verifyPassword = (req, res, next) => {
   const password = req.headers['authorization'];
-  if (password === 'endri123') {
+  if (password === process.env.ADMIN_PASSWORD) {
     next();
   } else {
     res.status(401).json({ error: 'Unauthorized' });
