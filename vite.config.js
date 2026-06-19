@@ -1,5 +1,6 @@
 import { defineConfig } from 'vite'
 
 export default defineConfig({
-    base: '/profile/',
+    // ponytail: '/' for self-hosted, '/profile/' injected by build:pages for GitHub Pages
+    base: process.env.VITE_BASE || '/',
 })
