@@ -209,12 +209,19 @@ function normalizeProfileData(data) {
 async function fetchProfileData() {
   try {
     const r = await fetch('/api/profile')
+    if (!r.ok) throw new Error('no api')
     const rawData = await r.json()
     appData = normalizeProfileData(rawData)
-    renderPage()
-  } catch (err) {
-    console.error('Failed to fetch profile data', err)
+  } catch {
+    // ponytail: fallback for static hosting (GitHub Pages)
+    try {
+      const r = await fetch('./profile.json')
+      appData = normalizeProfileData(await r.json())
+    } catch (err) {
+      console.error('Failed to load profile data', err)
+    }
   }
+  renderPage()
 }
 
 async function saveProfileData(newData) {
