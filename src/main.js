@@ -472,18 +472,49 @@ function renderSkillLevel(name, level) {
   }
 }
 
+
+function getGithubUsername() {
+  const profile = (appData.basics.profiles || []).find(p => (p.network || '').toLowerCase() === 'github')
+  return (profile?.username || profile?.url?.split('/').filter(Boolean).pop() || 'endrisusanto').replace(/^@/, '')
+}
+
+function renderGithubStatsSection() {
+  const user = getGithubUsername()
+  const cards = [
+    `https://github-readme-stats.vercel.app/api?username=${user}&show_icons=true&theme=transparent&hide_border=true`,
+    `https://github-readme-stats.vercel.app/api/top-langs/?username=${user}&layout=compact&theme=transparent&hide_border=true`,
+    `https://streak-stats.demolab.com?user=${user}&theme=transparent&hide_border=true`
+  ]
+
+  return `
+    <section class="card">
+      <h2>GitHub Statistics</h2>
+      <div class="github-stats-grid">
+        ${cards.map((src, i) => `<img src="${src}" alt="GitHub statistic ${i + 1} for ${user}" loading="lazy">`).join('')}
+      </div>
+      <img class="github-activity" src="https://github-readme-activity-graph.vercel.app/graph?username=${user}&theme=github-compact&hide_border=true" alt="GitHub activity graph for ${user}" loading="lazy">
+    </section>
+  `
+}
+
 function renderSkillsSection() {
   const skillsObj = appData.skills || {}
   const categories = Object.keys(skillsObj)
   if (!categories.length) return ''
 
   const categoryNames = {
+    software_quality_engineering: 'Software Quality Engineering',
+    programming_languages: 'Programming Languages',
+    automation_rpa: 'Automation & RPA',
+    application_analysis_modernization: 'Application Analysis & Modernization',
+    browser_api_integration: 'Browser & API Integration',
+    embedded_systems_iot: 'Embedded Systems & IoT',
+    infrastructure_devops: 'Infrastructure & DevOps',
     programming: 'Programming Languages',
     automation: 'Process & Workflow Automation',
     qa: 'Quality Assurance & Validation',
     android_engineering: 'Android & Device Engineering',
     application_analysis: 'Application Analysis & Modernization',
-    browser_api_integration: 'Browser API & Integration',
     cybersecurity_testing: 'Cybersecurity & Performance Testing',
     industrial_automation: 'Industrial Automation',
     embedded_iot: 'Embedded Systems & IoT',
@@ -523,7 +554,7 @@ function renderSkillsSection() {
 function renderWork(work) {
   const dateStr = `${work.startDate} – ${work.isWorkingHere ? 'Present' : (work.endDate || '')}`
   const periodStr = work.years ? `${dateStr} · ${work.years}` : dateStr
-  const descContent = work.summary || (work.highlights && work.highlights.length ? `<ul>${work.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : '')
+  const descContent = [work.summary ? `<p>${work.summary}</p>` : '', work.highlights && work.highlights.length ? `<ul>${work.highlights.map(h => `<li>${h}</li>`).join('')}</ul>` : ''].join('')
   
   return `
     <div class="list-item">
@@ -549,7 +580,8 @@ function renderProjectsSection() {
               <span>${p.name}</span>
               ${p.url ? `<a href="${p.url}" target="_blank" style="font-size: 0.8rem; font-weight: 500;">Link</a>` : ''}
             </h3>
-            <p style="font-size:0.825rem;flex-grow:1;margin-bottom:12px;color:var(--text-secondary);line-height:1.5;">${p.description}</p>
+            <p style="font-size:0.825rem;margin-bottom:10px;color:var(--text-secondary);line-height:1.5;">${p.description}</p>
+            ${p.highlights && p.highlights.length ? `<div class="markdown-content" style="margin-bottom:12px;"><ul>${p.highlights.map(h => `<li>${h}</li>`).join('')}</ul></div>` : ''}
             <div style="margin-top:auto; display:flex; flex-wrap:wrap; gap:4px;">
               ${(p.technologies || []).map(t => `<span class="tag" style="margin:0;">${t}</span>`).join('')}
             </div>
@@ -667,7 +699,6 @@ function renderPage() {
 
   const email = basics.email ? { name: 'Email', url: `mailto:${basics.email}` } : null
   const phone = basics.phone ? { name: 'Phone', url: `tel:${basics.phone.replace(/\s+/g, '')}` } : null
-  const website = basics.url ? { name: 'Website', url: basics.url } : null
   const socialProfiles = (basics.profiles || []).map(p => {
     const net = p.network || ''
     return {
@@ -675,7 +706,7 @@ function renderPage() {
       url: p.url || '#'
     }
   })
-  const allContacts = [email, phone, website, ...socialProfiles].filter(Boolean)
+  const allContacts = [email, phone, ...socialProfiles].filter(Boolean)
 
   const workList = appData.work || []
   const educationList = appData.education || []
@@ -706,9 +737,11 @@ function renderPage() {
           </section>
 
           <!-- About & Objective -->
+          ${renderGithubStatsSection()}
+
           <section class="card">
             <h2>About</h2>
-            <p style="font-size:0.875rem;line-height:1.6;color:var(--text-primary);">${basics.summary || ''}</p>
+            ${basics.summaryPoints && basics.summaryPoints.length ? `<div class="markdown-content"><ul>${basics.summaryPoints.map(p => `<li>${p}</li>`).join('')}</ul></div>` : `<p style="font-size:0.875rem;line-height:1.6;color:var(--text-primary);">${basics.summary || ''}</p>`}
             ${basics.objective ? `
               <div style="margin-top:16px;padding:14px;background:var(--accent-light);border-left:4px solid var(--accent-color);border-radius:0 var(--border-radius) var(--border-radius) 0;">
                 <h4 style="font-size:0.85rem;text-transform:uppercase;letter-spacing:0.05em;color:var(--accent-color);margin-bottom:6px;">Career Objective</h4>
