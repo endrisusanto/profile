@@ -1,18 +1,19 @@
 {
   "basics": {
     "name": "Endri Susanto",
-    "label": "Senior Automation Engineer | Software Quality Assurance | Product Engineering",
+    "label": "Software Quality Engineer | Automation Engineer | Agentic AI & Product Engineering",
+    "image": "",
     "email": "gmail@endrisusanto.my.id",
-    "phone": "+62 851-7697-0180",
-    "url": "https://profile.endrisusanto.my.id",
-    "summary": "Automation-focused Software Quality Assurance Engineer with 10+ years of experience at Samsung Electronics Indonesia specializing in Google Build Approval, Android software validation, process automation, engineering productivity solutions, and internal tool development. Experienced in automation platform development, browser extension development, API integration, application analysis, software modernization, self-hosted infrastructure, and cross-platform desktop application development using Rust/Tauri.",
+    "phone": "+62 85176970180",
+    "url": "https://github.com/endrisusanto",
+    "summary": "Software Quality Engineer with 10+ years of experience at Samsung Electronics Indonesia, specializing in Google Build Approval, Android software validation, automation engineering, productivity improvement, and engineering workflow optimization. Experienced in CTS, GTS, CTS Verifier, ADB, Tradefed, firmware flashing, test automation, internal tools development, and multi-device Android validation. Combines software quality engineering, process automation, Agentic AI, industrial automation, embedded systems, infrastructure, and application modernization to build scalable engineering solutions. Experienced in Agentic AI workflow development using n8n, Hermes Agent, Ollama, and LM Studio to build autonomous engineering assistants, local LLM-powered workflows, and AI-enabled automation systems. Completed 17 professional Udemy courses covering software engineering, artificial intelligence, machine learning, cybersecurity, QA automation, performance testing, industrial automation, and project management.",
     "location": {
       "city": "Karawang",
-      "countryCode": "ID"
+      "countryCode": "Indonesia"
     },
     "relExp": "10+ Years",
     "totalExp": "10+ Years",
-    "objective": "Seeking a challenging Automation Engineer role where I can apply my expertise in software quality assurance, process automation, application modernization, infrastructure management, and engineering tool development to build scalable solutions that improve productivity, reliability, and operational efficiency.",
+    "objective": "",
     "profiles": [
       {
         "network": "LinkedIn",
@@ -24,122 +25,455 @@
         "username": "endrisusanto",
         "url": "https://github.com/endrisusanto"
       }
+    ],
+    "summaryPoints": [
+      "Software Quality Engineer with 10+ years of experience at Samsung Electronics Indonesia, specializing in Google Build Approval, Android software validation, automation engineering, productivity improvement, and engineering workflow optimization.",
+      "Experienced in CTS, GTS, CTS Verifier, ADB, Tradefed, firmware flashing, test automation, internal tools development, and multi-device Android validation.",
+      "Combines software quality engineering, process automation, Agentic AI, industrial automation, embedded systems, infrastructure, and application modernization to build scalable engineering solutions.",
+      "Experienced in Agentic AI workflow development using n8n, Hermes Agent, Ollama, and LM Studio to build autonomous engineering assistants, local LLM-powered workflows, and AI-enabled automation systems.",
+      "Completed 17 professional Udemy courses across software engineering, artificial intelligence, machine learning, cybersecurity, QA automation, performance testing, industrial automation, and project management."
     ]
   },
   "skills": {
-    "programming": [
-      { "name": "Python", "level": 5 },
-      { "name": "PHP", "level": 5 },
-      { "name": "JavaScript", "level": 4 },
-      { "name": "TypeScript", "level": 4 },
-      { "name": "Rust", "level": 3 },
-      { "name": "SQL", "level": 5 }
+    "software_quality_engineering": [
+      {
+        "name": "CTS",
+        "level": 5
+      },
+      {
+        "name": "GTS",
+        "level": 5
+      },
+      {
+        "name": "CTS Verifier",
+        "level": 5
+      },
+      {
+        "name": "Google Build Approval",
+        "level": 5
+      },
+      {
+        "name": "Android Validation",
+        "level": 5
+      },
+      {
+        "name": "Software Validation",
+        "level": 5
+      },
+      {
+        "name": "Root Cause Analysis",
+        "level": 5
+      },
+      {
+        "name": "Test Automation",
+        "level": 5
+      }
     ],
-    "automation": [
-      { "name": "Power Automate", "level": 5 },
-      { "name": "AutoHotkey", "level": 5 },
-      { "name": "Python Automation", "level": 5 },
-      { "name": "RPA", "level": 5 },
-      { "name": "Browser Automation", "level": 4 },
-      { "name": "Workflow Automation", "level": 5 }
+    "programming_languages": [
+      {
+        "name": "Python",
+        "level": 5
+      },
+      {
+        "name": "PHP",
+        "level": 5
+      },
+      {
+        "name": "JavaScript",
+        "level": 5
+      },
+      {
+        "name": "TypeScript",
+        "level": 5
+      },
+      {
+        "name": "Rust",
+        "level": 5
+      },
+      {
+        "name": "SQL",
+        "level": 5
+      },
+      {
+        "name": "Go",
+        "level": 4
+      },
+      {
+        "name": "Dart",
+        "level": 3
+      }
     ],
-    "qa": [
-      { "name": "CTS", "level": 5 },
-      { "name": "GTS", "level": 5 },
-      { "name": "CTS Verifier", "level": 5 },
-      { "name": "Google Build Approval", "level": 5 },
-      { "name": "Android Validation", "level": 5 },
-      { "name": "Software Validation", "level": 5 },
-      { "name": "Root Cause Analysis", "level": 4 }
+    "automation_rpa": [
+      {
+        "name": "Power Automate",
+        "level": 5
+      },
+      {
+        "name": "AutoHotkey",
+        "level": 5
+      },
+      {
+        "name": "Python Automation",
+        "level": 5
+      },
+      {
+        "name": "Workflow Automation",
+        "level": 5
+      },
+      {
+        "name": "Browser Automation",
+        "level": 5
+      },
+      {
+        "name": "Process Automation",
+        "level": 5
+      },
+      {
+        "name": "RPA",
+        "level": 5
+      }
     ],
     "android_engineering": [
-      { "name": "ADB", "level": 5 },
-      { "name": "Tradefed", "level": 5 },
-      { "name": "Firmware Flashing", "level": 5 },
-      { "name": "Device Provisioning", "level": 4 },
-      { "name": "ODIN Process", "level": 5 },
-      { "name": "Android APK Analysis", "level": 4 }
+      {
+        "name": "ADB",
+        "level": 5
+      },
+      {
+        "name": "Tradefed",
+        "level": 5
+      },
+      {
+        "name": "Firmware Flashing",
+        "level": 5
+      },
+      {
+        "name": "Device Provisioning",
+        "level": 5
+      },
+      {
+        "name": "ODIN Process",
+        "level": 5
+      },
+      {
+        "name": "Android APK Analysis",
+        "level": 5
+      }
     ],
-    "application_analysis": [
-      { "name": "Android APK Analysis", "level": 4 },
-      { "name": "Windows Desktop Application Analysis", "level": 4 },
-      { "name": "Linux Desktop Application Analysis", "level": 4 },
-      { "name": "Legacy Application Modernization", "level": 4 },
-      { "name": "Rust/Tauri Migration", "level": 3 },
-      { "name": "Cross-Platform Desktop Application Development", "level": 3 }
+    "application_analysis_modernization": [
+      {
+        "name": "Android APK Analysis",
+        "level": 5
+      },
+      {
+        "name": "Windows Desktop Application Analysis",
+        "level": 5
+      },
+      {
+        "name": "Linux Desktop Application Analysis",
+        "level": 5
+      },
+      {
+        "name": "Legacy Application Modernization",
+        "level": 5
+      },
+      {
+        "name": "Rust/Tauri Migration",
+        "level": 5
+      },
+      {
+        "name": "Cross-Platform Desktop Application Development",
+        "level": 5
+      }
     ],
     "browser_api_integration": [
-      { "name": "Browser Extension Development", "level": 4 },
-      { "name": "Chrome Extension Development", "level": 4 },
-      { "name": "Fetch API", "level": 4 },
-      { "name": "REST API Integration", "level": 4 },
-      { "name": "WebSocket Integration", "level": 4 }
+      {
+        "name": "Browser Extension Development",
+        "level": 5
+      },
+      {
+        "name": "Chrome Extension Development",
+        "level": 5
+      },
+      {
+        "name": "Fetch API",
+        "level": 5
+      },
+      {
+        "name": "REST API Integration",
+        "level": 5
+      },
+      {
+        "name": "WebSocket Integration",
+        "level": 5
+      }
     ],
     "cybersecurity_testing": [
-      { "name": "Application Security Assessment", "level": 3 },
-      { "name": "OWASP Principles", "level": 3 },
-      { "name": "API Security Testing", "level": 3 },
-      { "name": "Apache JMeter", "level": 4 },
-      { "name": "Performance Testing", "level": 4 },
-      { "name": "Vulnerability Analysis", "level": 3 }
+      {
+        "name": "Application Security Assessment",
+        "level": 5
+      },
+      {
+        "name": "OWASP Principles",
+        "level": 5
+      },
+      {
+        "name": "API Security Testing",
+        "level": 5
+      },
+      {
+        "name": "Apache JMeter",
+        "level": 5
+      },
+      {
+        "name": "Performance Testing",
+        "level": 5
+      },
+      {
+        "name": "Vulnerability Analysis",
+        "level": 5
+      },
+      {
+        "name": "Secure Development Practices",
+        "level": 5
+      }
     ],
     "industrial_automation": [
-      { "name": "PLC Programming", "level": 3 },
-      { "name": "SCADA Systems", "level": 3 },
-      { "name": "Industrial Control Systems", "level": 3 },
-      { "name": "Electrical Control Panels", "level": 3 },
-      { "name": "Commercial Wiring", "level": 4 },
-      { "name": "Industrial Instrumentation", "level": 3 }
+      {
+        "name": "PLC Programming",
+        "level": 5
+      },
+      {
+        "name": "SCADA Systems",
+        "level": 5
+      },
+      {
+        "name": "Industrial Control Systems",
+        "level": 5
+      },
+      {
+        "name": "Electrical Control Panels",
+        "level": 5
+      },
+      {
+        "name": "Commercial Wiring",
+        "level": 5
+      },
+      {
+        "name": "Industrial Instrumentation",
+        "level": 5
+      }
     ],
-    "embedded_iot": [
-      { "name": "Microcontroller Programming", "level": 4 },
-      { "name": "ESP32", "level": 4 },
-      { "name": "Arduino", "level": 4 },
-      { "name": "MQTT", "level": 3 },
-      { "name": "Sensor Integration", "level": 4 },
-      { "name": "IoT Systems", "level": 4 }
+    "embedded_systems_iot": [
+      {
+        "name": "Microcontroller Programming",
+        "level": 5
+      },
+      {
+        "name": "ESP32",
+        "level": 5
+      },
+      {
+        "name": "Arduino",
+        "level": 5
+      },
+      {
+        "name": "Sensor Integration",
+        "level": 5
+      },
+      {
+        "name": "Serial Communication",
+        "level": 5
+      },
+      {
+        "name": "MQTT",
+        "level": 5
+      },
+      {
+        "name": "IoT Systems",
+        "level": 5
+      }
     ],
-    "infrastructure": [
-      { "name": "Linux", "level": 5 },
-      { "name": "Ubuntu", "level": 5 },
-      { "name": "Fedora", "level": 5 },
-      { "name": "Docker", "level": 4 },
-      { "name": "Cloudflare Tunnel", "level": 4 },
-      { "name": "KVM Virtualization", "level": 4 },
-      { "name": "Self Hosted Services", "level": 4 },
-      { "name": "Git", "level": 5 },
-      { "name": "GitHub", "level": 5 }
+    "infrastructure_devops": [
+      {
+        "name": "Linux",
+        "level": 5
+      },
+      {
+        "name": "Ubuntu",
+        "level": 5
+      },
+      {
+        "name": "Fedora",
+        "level": 5
+      },
+      {
+        "name": "Docker",
+        "level": 5
+      },
+      {
+        "name": "Cloudflare Tunnel",
+        "level": 5
+      },
+      {
+        "name": "KVM Virtualization",
+        "level": 5
+      },
+      {
+        "name": "Self-Hosted Services",
+        "level": 5
+      },
+      {
+        "name": "Git",
+        "level": 5
+      },
+      {
+        "name": "GitHub",
+        "level": 5
+      }
     ],
     "smart_systems": [
-      { "name": "Home Assistant", "level": 4 },
-      { "name": "Frigate NVR", "level": 4 },
-      { "name": "Smart Home Automation", "level": 4 },
-      { "name": "Edge Computing", "level": 3 }
+      {
+        "name": "Home Assistant",
+        "level": 5
+      },
+      {
+        "name": "Frigate NVR",
+        "level": 5
+      },
+      {
+        "name": "Smart Home Automation",
+        "level": 5
+      },
+      {
+        "name": "Edge Computing",
+        "level": 5
+      }
+    ],
+    "agentic_ai_llm_engineering": [
+      {
+        "name": "Agentic AI",
+        "level": 5
+      },
+      {
+        "name": "AI Agents",
+        "level": 5
+      },
+      {
+        "name": "Autonomous Workflows",
+        "level": 5
+      },
+      {
+        "name": "n8n",
+        "level": 5
+      },
+      {
+        "name": "Hermes Agent",
+        "level": 5
+      },
+      {
+        "name": "Ollama",
+        "level": 5
+      },
+      {
+        "name": "LM Studio",
+        "level": 5
+      },
+      {
+        "name": "Local LLM Deployment",
+        "level": 5
+      },
+      {
+        "name": "Prompt Engineering",
+        "level": 5
+      },
+      {
+        "name": "Tool Calling",
+        "level": 5
+      },
+      {
+        "name": "AI Agent Orchestration",
+        "level": 5
+      }
+    ],
+    "artificial_intelligence_machine_learning": [
+      {
+        "name": "Machine Learning",
+        "level": 4
+      },
+      {
+        "name": "Deep Learning",
+        "level": 3
+      },
+      {
+        "name": "Computer Vision",
+        "level": 3
+      },
+      {
+        "name": "YOLO Object Detection",
+        "level": 3
+      },
+      {
+        "name": "Generative AI",
+        "level": 4
+      },
+      {
+        "name": "AI-Assisted Test Automation",
+        "level": 4
+      }
+    ],
+    "software_mobile_development": [
+      {
+        "name": "Flutter",
+        "level": 3
+      },
+      {
+        "name": "React Native",
+        "level": 3
+      },
+      {
+        "name": "Node.js",
+        "level": 4
+      },
+      {
+        "name": "EJS",
+        "level": 4
+      },
+      {
+        "name": "Elasticsearch",
+        "level": 3
+      },
+      {
+        "name": "Rust/Tauri",
+        "level": 5
+      }
     ]
   },
   "work": [
     {
       "id": "1",
       "name": "Samsung Electronics Indonesia",
-      "position": "Software Quality Assurance Engineer",
+      "position": "Software QA Engineer",
       "department": "Product Engineering",
-      "startDate": "Jan 2016",
+      "startDate": "2016-01",
       "endDate": null,
       "isWorkingHere": true,
       "location": "Cikarang, Indonesia",
       "years": "10+ Years",
-      "summary": "Software QA Engineer under Product Engineering Department focusing on Android software validation, Google Build Approval processes, automation development, productivity improvement, and engineering workflow optimization.",
+      "summary": "Software QA Engineer under the Product Engineering Department, focusing on Android software validation, Google Build Approval processes, software quality engineering, automation development, productivity improvement, and engineering workflow optimization.",
       "highlights": [
         "Performed Google Build Approval testing including CTS, GTS, CTS Verifier, and Android software validation.",
-        "Developed automation tools and internal web applications that reduced manual effort and improved engineering productivity.",
+        "Developed automation tools and internal web applications to reduce manual effort and improve engineering productivity.",
         "Managed multi-device Android validation environments using ADB, Tradefed, Linux, and automation frameworks.",
-        "Designed workflow automation solutions using Power Automate, AutoHotkey, Python, PHP, JavaScript, and SQL.",
-        "Built browser extensions and API integration tools to automate repetitive engineering workflows.",
-        "Performed application analysis for Android APK, Windows desktop applications, and Linux desktop applications to support automation and modernization initiatives.",
+        "Built workflow automation solutions using Power Automate, AutoHotkey, Python, PHP, JavaScript, SQL, and browser automation.",
+        "Developed browser extensions and Fetch API integrations to automate repetitive Build Approval and engineering workflows.",
+        "Analyzed Android APKs, Windows desktop applications, and Linux applications to understand system behavior and support automation or modernization initiatives.",
         "Rebuilt and modernized desktop tools using Rust/Tauri for cross-platform automation workflows.",
         "Implemented self-hosted engineering solutions using Linux, Docker, Cloudflare Tunnel, and internal web services.",
-        "Used Apache JMeter and API testing approaches for performance testing and system validation.",
-        "Collaborated with Product Engineering teams to improve software quality, release readiness, and process efficiency."
+        "Used Apache JMeter and API testing approaches for performance testing, system validation, and basic security assessment.",
+        "Collaborated with Product Engineering teams to improve software quality, release readiness, and process efficiency.",
+        "Designed Agentic AI workflows using n8n, Hermes Agent, Ollama, and LM Studio for engineering assistance and workflow automation.",
+        "Integrated local large language models with engineering tools, APIs, and automation workflows.",
+        "Developed AI-powered engineering assistants for documentation, task execution, workflow routing, and technical support."
       ]
     }
   ],
@@ -147,7 +481,7 @@
     {
       "id": "1",
       "institution": "Universitas Diponegoro",
-      "studyType": "Diploma 3 (D3)",
+      "studyType": "Diploma 3",
       "area": "Electrical Engineering",
       "startDate": "2012",
       "endDate": "2015",
@@ -173,121 +507,254 @@
     {
       "name": "QEHS and ISO Training",
       "issuer": "Bina Profesi Institute - Konstan Group"
-    },
-    {
-      "name": "Rust Programming From Beginner to Advanced",
-      "issuer": "Udemy"
     }
   ],
   "projects": [
     {
+      "name": "GBA Agentic Runner",
+      "url": "https://github.com/endrisusanto/GBA-Agentic-Runner",
+      "startDate": "2025-01",
+      "endDate": "present",
+      "description": "Agentic AI worker platform for Google Build Approval engineering workflow automation using n8n, Hermes Agent, Ollama, and LM Studio.",
+      "highlights": [
+        "Designed and implemented Agentic AI workflows for Google Build Approval engineering processes.",
+        "Built AI workflow orchestration using n8n and Hermes Agent.",
+        "Integrated local large language models through Ollama and LM Studio for private and self-hosted AI execution.",
+        "Developed AI-powered engineering assistants for task execution, documentation, workflow routing, and technical support.",
+        "Connected AI agents with APIs, automation tools, and engineering workflows.",
+        "Reduced repetitive manual activities through autonomous and tool-enabled workflow execution."
+      ],
+      "technologies": [
+        "Agentic AI",
+        "n8n",
+        "Hermes Agent",
+        "Ollama",
+        "LM Studio",
+        "Local LLM",
+        "REST API",
+        "Automation"
+      ]
+    },
+    {
+      "name": "ADB Wireless Device Farm Manager",
+      "url": "https://github.com/endrisusanto/adb-wireless-device-farm-manager",
+      "startDate": "2026-06",
+      "endDate": "present",
+      "description": "A compact, monochrome, modern utility dashboard built with Rust and Tauri v2. It is designed to manage connection states, pairing, and controls of multiple Android devices in a device farm, with a strong focus on switching from unstable USB cables to reliable ADB Wireless (TCP/IP) connections.",
+      "highlights": [
+        "Manage connection states, pairing, and controls of multiple Android devices in a device farm.",
+        "Focus on switching from unstable USB cables to reliable ADB Wireless (TCP/IP) connections."
+      ],
+      "technologies": [
+        "Rust",
+        "Tauri v2",
+        "ADB",
+        "AOSP",
+        "Web & Desktop Application Development"
+      ]
+    },
+    {
+      "name": "QB Downloader",
+      "url": "https://github.com/endrisusanto/qb-downloader",
+      "startDate": "2026-06",
+      "endDate": "present",
+      "description": "Desktop download manager for Samsung Android QuickBuild artifacts, built with React, Rust, and Tauri 2.",
+      "highlights": [
+        "Tune, Fix, and Reverse Engineer from Official QD Downloader.",
+        "Built with React, Rust, and Tauri 2."
+      ],
+      "technologies": [
+        "React",
+        "Rust",
+        "Tauri 2",
+        "Web & Desktop Application Development"
+      ]
+    },
+    {
       "name": "FlashKit",
       "url": "https://github.com/endrisusanto/FlashKit",
+      "startDate": "2026-05",
+      "endDate": "present",
       "description": "Fully automated firmware flashing and Android device provisioning platform.",
-      "technologies": ["TypeScript", "ADB", "Android", "Automation"]
+      "highlights": [
+        "Automated Android firmware flashing workflow.",
+        "Reduced device provisioning effort.",
+        "Improved consistency and operational efficiency."
+      ],
+      "technologies": [
+        "Automation",
+        "Android Testing"
+      ]
     },
     {
       "name": "ATM Launcher",
       "url": "https://github.com/endrisusanto/ATM-Launcher",
-      "description": "Rust-based desktop automation dashboard for workflow execution and monitoring.",
-      "technologies": ["Rust", "Tauri", "Desktop App", "Automation"]
+      "startDate": "2026-04",
+      "endDate": "present",
+      "description": "Desktop UI baru untuk ATM Batch Runner dengan tampilan gelap seperti dashboard CTS automation.",
+      "highlights": [
+        "Load checklist testcase normal dari asset CTS Verifier.",
+        "Open CTS Verifier app pada selected device.",
+        "Install CTS Verifier core APK, AutoCtsVerifier APK, dan companion APK opsional dari resource eksternal.",
+        "Start selected CTS Verifier activity pada selected device.",
+        "Run selected testcase lewat AutoCtsVerifier instrumentation dan tampilkan status/time per testcase."
+      ],
+      "technologies": [
+        "Scripting & Automation RPA",
+        "Web & Desktop Application Development"
+      ]
     },
     {
-      "name": "Auto Fill Extension",
+      "name": "Samsung Build Approval Server (BAS) auto-fill-extension",
       "url": "https://github.com/endrisusanto/auto-fill-extension",
-      "description": "Browser extension for automating Samsung Build Approval Server form submission.",
-      "technologies": ["JavaScript", "Chrome Extension", "Fetch API", "Browser Automation"]
+      "startDate": "2026-01",
+      "endDate": "present",
+      "description": "Browser extension untuk mengotomatiskan pengisian formulir pada platform Samsung Build Approval Server (BAS). Dirancang untuk meningkatkan produktivitas, mengurangi kesalahan manusia (human error), dan memberikan pengalaman \"One-Click Submission\".",
+      "highlights": [
+        "Browser extension untuk mengotomatiskan pengisian formulir pada platform Samsung Build Approval Server (BAS).",
+        "Meningkatkan produktivitas, mengurangi kesalahan manusia (human error), dan memberikan pengalaman 'One-Click Submission'."
+      ],
+      "technologies": [
+        "Web & Desktop Application Development",
+        "Chrome Extensions"
+      ]
     },
     {
-      "name": "Companion Release Cheatsheet",
-      "url": "https://github.com/endrisusanto/companion-release-cheatsheet",
-      "description": "PHP-based release management and reference tracking web application.",
-      "technologies": ["PHP", "MySQL", "Web Application"]
-    },
-    {
-      "name": "GBA Task Manager",
-      "url": "https://github.com/endrisusanto/project_manager",
-      "description": "Web-based project and task management system for Google Build Approval workflows.",
-      "technologies": ["PHP", "MySQL", "Bootstrap", "Workflow Management"]
-    },
-    {
-      "name": "Warga Ambyar",
+      "name": "Aplikasi Manajemen RT/RW Gang Ambyar",
       "url": "https://github.com/endrisusanto/warga_ambyar",
-      "description": "Full-stack Node.js application for community resident and contribution management.",
-      "technologies": ["Node.js", "EJS", "JavaScript"]
+      "startDate": "2024-12",
+      "endDate": "present",
+      "description": "Aplikasi Full-Stack Node.js untuk manajemen data warga dan iuran RT/RW.",
+      "highlights": [
+        "Built resident and contribution management system.",
+        "Implemented full-stack architecture using Node.js and EJS."
+      ],
+      "technologies": [
+        "Web & Desktop Application Development",
+        "Management Consulting"
+      ]
+    },
+    {
+      "name": "RPA | Automated Rebuild and Retrieval System for Binary in Quickbuild",
+      "url": "",
+      "startDate": "2024-07",
+      "endDate": "present",
+      "description": "Automated Rebuild and Retrieval System for Binary in Quickbuild.",
+      "highlights": [
+        "49,896 Hours Force Saved."
+      ],
+      "technologies": []
+    },
+    {
+      "name": "Companion Release Reference Sheet",
+      "url": "https://github.com/endrisusanto/companion-release-cheatsheet",
+      "startDate": "2024-01",
+      "endDate": "present",
+      "description": "Sebuah aplikasi web berbasis PHP yang dirancang untuk mengelola, melacak, dan menyimpan catatan rilis (release cheatsheets). Aplikasi ini dilengkapi dengan sistem autentikasi, dashboard manajemen, operasi CRUD yang lengkap, serta fitur filter dan ekspor data untuk memudahkan pengguna.",
+      "highlights": [
+        "Sistem autentikasi, dashboard manajemen, operasi CRUD yang lengkap, serta fitur filter dan ekspor data."
+      ],
+      "technologies": [
+        "Web & Desktop Application Development",
+        "Project Management"
+      ]
+    },
+    {
+      "name": "RPA | Auto CI/CD Release Android Firmware For All Samsung Smartphone Region Indonesia",
+      "url": "",
+      "startDate": "2024-01",
+      "endDate": "present",
+      "description": "Auto Gather Data, Build Binary, Genie Auto Wizard, and Approval by Power Automate integrated with self hosted System App.",
+      "highlights": [
+        "Auto Gather Data, Build Binary.",
+        "Genie Auto Wizard and Approval by Power Automate integrated with self hosted System App."
+      ],
+      "technologies": [
+        "Robotic Process Automation (RPA)",
+        "Scripting & Automation RPA"
+      ]
+    },
+    {
+      "name": "Google Build Approval (GBA) Task Manager",
+      "url": "https://github.com/endrisusanto/project_manager",
+      "startDate": "2016-02",
+      "endDate": "present",
+      "description": "GBA Task Manager adalah aplikasi web berbasis PHP yang dirancang untuk mengelola dan melacak tugas-tugas yang terkait dengan proses Google Build Approval (GBA). Aplikasi ini menyediakan antarmuka Kanban, dasbor analitik, dan manajemen tugas terpusat untuk meningkatkan efisiensi tim.",
+      "highlights": [
+        "Aplikasi ini dibangun menggunakan PHP native, MySQL, dan Tailwind CSS untuk styling."
+      ],
+      "technologies": [
+        "Project Management",
+        "Project Tracking"
+      ]
+    },
+    {
+      "name": "Sample Delivery Monitoring System",
+      "url": "https://github.com/endrisusanto/sample-delivery-tracker",
+      "startDate": "2024-06",
+      "endDate": "2024-07",
+      "description": "DHL Express Internal Tracker for Sample Delivery Monitoring System.",
+      "highlights": [
+        "DHL Express Internal Tracker."
+      ],
+      "technologies": [
+        "Web & Desktop Application Development"
+      ]
     }
   ],
   "awards": [
     {
       "title": "Best Employee 2025",
       "awarder": "Samsung Electronics Indonesia",
-      "date": "2025"
+      "date": ""
     },
     {
-      "title": "10 Years Long Service Recognition",
+      "title": "Samsung 10 Years Long Service Recognition Award",
       "awarder": "Samsung Electronics Indonesia",
-      "date": "2026"
+      "date": ""
     },
     {
-      "title": "Best Improvement - Air Quality Monitoring Network Implementation",
-      "awarder": "Samsung Electronics Indonesia / EHS Department",
+      "title": "Best Improvement Award - Air Quality Monitoring Network Implementation",
+      "awarder": "Samsung Electronics Indonesia",
       "date": ""
     }
   ],
   "innovations": [
     {
       "title": "Automated Rebuild and Retrieval System for Binary in Quickbuild",
-      "classification": "Class 5",
+      "classification": "Innovation Award",
       "status": "Adopt",
       "impact": "49,896 Hours Saved"
     },
     {
       "title": "Streamlining File Organization with Automated Sorting Solutions",
-      "classification": "Class 5",
+      "classification": "Innovation Award",
       "status": "Adopt",
       "impact": "17,846 Hours Saved"
     },
     {
       "title": "Implementing Ethernet Standardization for Optimizing Network Performance",
-      "classification": "Class 4",
+      "classification": "Innovation Award",
       "status": "Adopt",
-      "impact": "14,932 USD"
+      "impact": "14,932 USD Impact"
     },
     {
       "title": "Web-Based Companion Release Reference Sheet",
-      "classification": "Class 5",
+      "classification": "Innovation Award",
       "status": "Adopt",
-      "impact": "1,393 USD"
+      "impact": "1,393 USD Impact"
     },
     {
       "title": "Standardization USB 3.0 on Flashing ODIN Process",
-      "classification": "Class 5",
+      "classification": "Innovation Award",
       "status": "Adopt",
-      "impact": "696 USD"
+      "impact": "696 USD Impact"
     },
     {
       "title": "Standardization SSD/NVMe M.2 for ODIN Binary Flashing Efficiency",
-      "classification": "Class 5",
+      "classification": "Innovation Award",
       "status": "Adopt",
-      "impact": "410 USD"
-    },
-    {
-      "title": "Productivity Improvement through Web-Based Boot Images Companion",
-      "classification": "Non Adopt",
-      "status": "Non Adopt",
-      "impact": "720 USD"
-    },
-    {
-      "title": "U2Net AI Model for Background Removal in Image Processing",
-      "classification": "Non Adopt",
-      "status": "Non Adopt",
-      "impact": "275 USD"
-    },
-    {
-      "title": "Web Application for Image Cropping and Compression",
-      "classification": "Non Adopt",
-      "status": "Non Adopt",
-      "impact": "275 USD"
+      "impact": "410 USD Impact"
     }
   ],
   "languages": [
@@ -301,24 +768,42 @@
     }
   ],
   "technicalInterests": [
-    "AI Agents",
-    "Local LLM Deployment",
+    "Software Quality Engineering",
+    "Agentic AI Engineering",
+    "AI Agents and Autonomous Workflows",
+    "Multi-Agent Systems",
+    "n8n AI Workflow Automation",
+    "Hermes Agent",
+    "Local LLM Deployment with Ollama and LM Studio",
+    "Machine Learning and Deep Learning",
+    "Computer Vision and YOLO Object Detection",
+    "Generative AI for QA Test Automation",
+    "AI-Assisted Software Engineering",
+    "Model Context Protocol and Tool-Enabled AI Agents",
     "Application Modernization",
-    "Android APK Analysis",
-    "Windows Desktop Application Analysis",
     "Rust/Tauri Desktop Applications",
+    "Flutter and React Native Development",
     "Browser Extension Development",
-    "Cybersecurity",
-    "API Security Testing",
-    "JMeter Performance Testing",
-    "Home Assistant",
-    "Frigate NVR",
-    "Self Hosted Infrastructure",
-    "Cloudflare Tunnel",
-    "Docker",
-    "KVM Virtualization",
-    "IoT Automation",
-    "Industrial Automation",
-    "Smart Manufacturing"
+    "Cybersecurity and Ethical Hacking",
+    "API Security and Performance Testing",
+    "Self-Hosted Infrastructure",
+    "Android Automation and Multi-Device Testing",
+    "Industrial Automation and Smart Manufacturing"
+  ],
+  "onlineCourses": [
+    {
+      "provider": "Udemy",
+      "completedCourses": 17,
+      "status": "Completed",
+      "summary": "Completed 17 online courses across software engineering, artificial intelligence, cybersecurity, software testing, automation, and project management.",
+      "categories": [
+        "Artificial Intelligence & Machine Learning: Machine learning, deep learning, YOLO object detection, and AI agents.",
+        "Software Development: Python, Go, Rust, PHP, Flutter, React Native, and Elasticsearch.",
+        "Software QA & Test Automation: Generative AI for QA automation and Apache JMeter performance testing.",
+        "Cybersecurity: Ethical hacking, network security, and vulnerability assessment fundamentals.",
+        "Industrial & Workflow Automation: PLC, industrial automation, and Microsoft Power Automate.",
+        "Project Management: Project planning, execution, risk management, and leadership fundamentals."
+      ]
+    }
   ]
 }

@@ -73,6 +73,21 @@ a:hover {
   max-width: 1128px;
   margin: 0 auto;
   padding: 0 var(--spacing-md);
+  transition: max-width var(--transition-speed);
+}
+
+@media (min-width: 1200px) {
+  .container {
+    max-width: 1400px;
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media (min-width: 1600px) {
+  .container {
+    max-width: 95%;
+    padding: 0 var(--spacing-xl);
+  }
 }
 
 .main-grid {
@@ -83,8 +98,13 @@ a:hover {
 
 @media (min-width: 992px) {
   .main-grid {
-    grid-template-columns: 3fr 1fr;
+    grid-template-columns: 1fr minmax(300px, 340px);
+    gap: var(--spacing-lg);
     align-items: start;
+  }
+  
+  .main-grid > * {
+    min-width: 0;
   }
 }
 
@@ -107,8 +127,10 @@ a:hover {
 .banner {
   background: url('/assets/banner.jpg') no-repeat center center;
   background-size: cover;
-  height: 200px;
   width: 100%;
+  aspect-ratio: 4 / 1;
+  min-height: 120px;
+  max-height: 280px;
 }
 
 .profile-pic-container {
@@ -308,7 +330,7 @@ h3 {
 
 .github-stats-grid {
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
   gap: 12px;
 }
 
@@ -316,6 +338,7 @@ h3 {
 .github-activity {
   width: 100%;
   max-width: 100%;
+  height: auto;
   display: block;
 }
 
@@ -772,28 +795,41 @@ h3 {
 
   .profile-pic-container {
     display: flex;
-    margin-left: 0;
-    justify-content: center;
-    margin-top: -60px;
+    margin-left: 16px;
+    justify-content: flex-start;
+    margin-top: -45px;
     margin-bottom: 8px;
   }
 
   .profile-pic {
-    width: 120px;
-    height: 120px;
+    width: 90px;
+    height: 90px;
+    border-width: 3px;
   }
 
   .profile-info {
-    text-align: center;
+    text-align: left;
     padding: 0 16px 20px;
   }
 
   .profile-info h1 {
     font-size: 1.35rem;
+    text-align: left;
+  }
+
+  .profile-info p {
+    text-align: left;
   }
 
   .profile-actions {
-    justify-content: center;
+    justify-content: flex-start;
+    flex-wrap: wrap;
+    gap: 8px;
+  }
+
+  .profile-actions .btn {
+    margin: 0;
+    width: auto;
   }
 
   .project-grid {
@@ -820,5 +856,114 @@ h3 {
     width: 100%;
     justify-content: flex-end;
     margin-top: 4px;
+  }
+}
+
+/* ── Additional Mobile Responsiveness Fixes ── */
+@media (max-width: 768px) {
+  .github-stats-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .github-stats-grid img,
+  .github-activity {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    object-fit: contain;
+  }
+
+  .skills-main-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .project-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .modal {
+    max-width: 95vw;
+    margin: 10px;
+  }
+
+  .fab-settings {
+    bottom: 20px;
+    right: 20px;
+    width: 46px;
+    height: 46px;
+  }
+}
+
+@media (max-width: 480px) {
+  .container {
+    padding: 0 var(--spacing-xs);
+  }
+
+  .card {
+    padding: 12px;
+    overflow-x: hidden;
+  }
+
+  .banner {
+    min-height: 80px;
+  }
+
+  .profile-actions {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+  }
+
+  .profile-actions .btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .github-stats-grid {
+    grid-template-columns: 1fr !important;
+  }
+
+  .github-stats-grid img,
+  .github-activity {
+    width: 100% !important;
+    max-width: 100% !important;
+    height: auto !important;
+    min-width: 0 !important;
+  }
+
+  h1 {
+    font-size: 1.25rem;
+  }
+
+  h2 {
+    font-size: 1.05rem;
+  }
+}
+
+@media (max-width: 380px) {
+  .profile-pic {
+    width: 76px;
+    height: 76px;
+  }
+
+  .profile-pic-container {
+    margin-top: -38px;
+  }
+
+  .card {
+    padding: 10px;
+  }
+
+  .skill-info-row {
+    flex-wrap: wrap;
+    gap: 4px;
+  }
+
+  .skill-name {
+    font-size: 0.8rem;
+  }
+
+  .skill-percentage {
+    font-size: 0.75rem;
   }
 }

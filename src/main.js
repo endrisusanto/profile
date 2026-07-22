@@ -481,9 +481,9 @@ function getGithubUsername() {
 function renderGithubStatsSection() {
   const user = getGithubUsername()
   const cards = [
-    `https://github-readme-stats.vercel.app/api?username=${user}&show_icons=true&theme=transparent&hide_border=true`,
-    `https://github-readme-stats.vercel.app/api/top-langs/?username=${user}&layout=compact&theme=transparent&hide_border=true`,
-    `https://streak-stats.demolab.com?user=${user}&theme=transparent&hide_border=true`
+    `https://github-stats-extended.vercel.app/api?username=${user}&show_icons=true&theme=transparent&hide_border=true`,
+    `https://github-stats-extended.vercel.app/api/top-langs/?username=${user}&layout=compact&theme=transparent&hide_border=true`,
+    `https://github-readme-streak-stats-eight.vercel.app?user=${user}&theme=transparent&hide_border=true`
   ]
 
   return `
